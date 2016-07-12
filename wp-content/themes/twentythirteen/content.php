@@ -10,6 +10,21 @@
  */
 ?>
 
+<?php
+if ( function_exists('yoast_breadcrumb') ) {
+yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+}
+if (get_post_type( get_the_ID() ) == 'servicios' ){?>
+<div class="container">
+	<div class="imgservicios">
+<?php 	the_post_thumbnail(); ?>
+	</div>
+	<?php the_content(); ?>
+ </div>
+<?php 
+} else {
+?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<?php if ( has_post_thumbnail() && ! post_password_required() && ! is_attachment() ) : ?>
@@ -62,3 +77,4 @@
 		<?php endif; ?>
 	</footer><!-- .entry-meta -->
 </article><!-- #post -->
+<?php } ?>

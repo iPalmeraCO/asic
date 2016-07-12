@@ -948,7 +948,7 @@ ul.nav-menu .focus > ul,
 
 /* Navbar */
 .navbar {
-	background-color: #f7f5e7;
+	/*background-color: #f7f5e7;*/
 	margin: 0 auto;
 	max-width: 1600px;
 	width: 100%;
@@ -992,7 +992,7 @@ ul.nav-menu .focus > ul,
  */
 
 .hentry {
-	padding: 40px 0;
+	/*padding: 40px 0;*/
 }
 
 .entry-header,
@@ -1017,7 +1017,7 @@ ul.nav-menu .focus > ul,
  * 5.1 Entry Header
  * ----------------------------------------------------------------------------
  */
-
+/*
 .sidebar .entry-header .entry-meta {
 	padding: 0;
 }
@@ -1044,6 +1044,7 @@ ul.nav-menu .focus > ul,
 	color: #ea9629;
 }
 
+*/
 
 /**
  * 5.2 Entry Meta
