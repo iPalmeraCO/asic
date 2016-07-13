@@ -6207,7 +6207,7 @@ button.close {
     text-decoration: none;
     margin:0px;
     padding:0px;
-    list-style:none;
+    /*list-style:none;*/
 			}
 .header {
     width: 90%;
@@ -6523,6 +6523,7 @@ padding-bottom: 14px;
 	background-color: #893e9a;
 	position: relative;
     padding: 2% 7%;
+    width : 100%;
 }
 /*----------------------- Servicios - Nube -------------------------------- */
 #text18{
@@ -6690,4 +6691,38 @@ hr.vertical
 
 .imgservicios img{
   width: 100%;
+  height: 210px !important;
+}
+
+.list_serviazul{
+  list-style: square;
+  list-style-image: url('images/circulo_azul.png'); 
+}
+.list_serviverde{
+  list-style: square;
+  list-style-image: url('images/circulo_verde.png'); 
+}
+.list_serviviole{
+  list-style: square;
+  list-style-image: url('images/circulo_violeta.png'); 
+}
+.list_serviviole{
+  list-style: square;
+  list-style-image: url('images/circulo_violeta.png'); 
+}
+.list_servinaran{
+  list-style: square;
+  list-style-image: url('images/circulo_naranja.png'); 
+}
+
+.contentservicios .img{
+ padding: 0px !important;
+     padding-top: 36px;
+}
+.contentservicios.text{
+
+  
+}
+.contentservicios{
+  min-height: 110px;
 }
