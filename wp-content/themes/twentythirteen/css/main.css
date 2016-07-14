@@ -6698,6 +6698,10 @@ hr.vertical
   list-style: square;
   list-style-image: url('images/circulo_azul.png'); 
 }
+.list_serviazul2{
+  list-style: square;
+  list-style-image: url('images/circulo_azuloscuro.png'); 
+}
 .list_serviverde{
   list-style: square;
   list-style-image: url('images/circulo_verde.png'); 
@@ -6710,11 +6714,31 @@ hr.vertical
   list-style: square;
   list-style-image: url('images/circulo_violeta.png'); 
 }
+.list_serviviole2{
+  list-style: square;
+  list-style-image: url('images/circulo_violetaoscuro.png'); 
+}
 .list_servinaran{
   list-style: square;
   list-style-image: url('images/circulo_naranja.png'); 
 }
+.list_servinaran2{
+  list-style: square;
+  list-style-image: url('images/circulo_naranjadi.png'); 
+}
 
+.list_servimari{
+  list-style: square;
+  list-style-image: url('images/circulo_marino.png'); 
+}
+.list_serviverde{
+  list-style: square;
+  list-style-image: url('images/circulo_verdedi.png'); 
+}
+.list_servirosa{
+  list-style: square;
+  list-style-image: url('images/circulo_rosa.png'); 
+}
 .contentservicios .img{
  padding: 0px !important;
      padding-top: 36px;
@@ -6725,4 +6749,12 @@ hr.vertical
 }
 .contentservicios{
   min-height: 110px;
+}
+
+.titprod {
+    font-size: 1em;
+    font-weight: bold;
+    color: #e30613;
+    text-align: left;
+    margin-top: 4px;
 }
