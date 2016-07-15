@@ -6641,6 +6641,7 @@ hr.vertical
     font-weight: bold;
     font-size: 1.8em;
     text-align: center;
+    margin-top: 20px;
 }
 /*----------------------- Formulario -------------------------------- */
 .text28{
@@ -6757,4 +6758,54 @@ hr.vertical
     color: #e30613;
     text-align: left;
     margin-top: 4px;
+}
+
+.campoform {
+  margin-top: 10px;
+}
+.campoform span input  {
+ width: 100%;
+ border: #e30613 1px solid;
+ height: 40px;
+ border-radius: 6px;
+}
+
+.campoform span textarea {
+  width: 100%;
+  border: #e30613 1px solid;
+  border-radius: 6px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.enviarform input{
+     background-color: #e30613;
+    float: right;
+    width: 150px;
+    border-radius: 6px;
+    color: #FFF;
+        font-size: 20px;
+}
+.tituloform{
+      background-color: #e30613;
+      width: 100%;
+          font-weight: bold;
+    font-size: 1.6em;
+    text-align: center;
+    color: #FFF;
+    margin-top: 30px;
 }
