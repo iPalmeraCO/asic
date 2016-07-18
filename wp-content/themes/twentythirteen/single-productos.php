@@ -141,6 +141,46 @@ if ( $the_query->have_posts() ) {
                
 
  </div>
+
+    <p id="text7">Unidades de apoyo</p>
+                 <div class="servicios">
+                 	<div class="contentservicios">
+                 	<?php
+                 	$args = array('category_name'=>'unidadesdeapoyo','post_type'=>'unidadesdeapoyo','orderby'=>'date','order'=>'ASC');
+                 	$the_query = new WP_Query( $args );
+
+// The Loop
+if ( $the_query->have_posts() ) {
+	
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();		
+		$text =  get_field('textominiatura',get_the_ID());
+		$img  = get_field('miniatura',get_the_ID());
+		$rutimg =$img["url"];
+
+		?>
+		 
+		 	<div class="col-md-4 img">
+            	<a href="<?php echo get_permalink(); ?>"><img src="<?php echo $rutimg; ?>" class="img-responsive image" alt="Imagen responsive" ></a>
+            </div>
+            
+            
+       
+		
+	<?php } ?>
+	 </div>
+		<?php
+	
+	/* Restore original Post Data */
+	wp_reset_postdata();
+}
+
+?>
+
+               
+
+ </div>
+ 
  </div>
 
 
