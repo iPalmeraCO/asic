@@ -6820,3 +6820,41 @@ hr.vertical
 margin-top: 10px;
 height: 40px;
 }
+
+#clientesyaliados > img{
+  background-color: red;
+}
+
+.imgclientes{
+  margin-top: 10px;
+  min-height: 54px;
+  margin-bottom: 10px;
+}
+.colclientes {
+  margin-top: 10px;
+}
+.colclientes div:nth-child(2) {
+  margin-top: 10px;
+}
+.enviarform2 input{
+      border: #ffffff 4px solid;
+    background-color: #e30613;
+    float: right;
+    width: 150px;
+    border-radius: 6px;
+}
+.camposcontact div, .formconta div {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+.titconta{
+      font-size: 1em;
+    font-weight: bold;
+    color: #e30613;
+    text-align: left;
+    margin-top: 4px;
+}
+#contpaises{
+    padding-left: 60px;
+  padding-right: 60px;
+}
