@@ -6858,3 +6858,12 @@ height: 40px;
     padding-left: 60px;
   padding-right: 60px;
 }
+
+#faq dl {margin:0 auto; width:100%}
+#faq dt {background-color:#E8E9ED; font-size:1.1em; border-bottom:2px solid #fff; padding:5px;line-height: 2em;}
+#faq dt a {color:#000;font-weight: bold;}
+
+#faq dd, ul {margin:0; padding:0}
+#faq ul li {background-color:#fff; font-size:1.1em; list-style:none;line-height: 1.5em;margin-bottom:10px;}
+#faq ul li a {color:#069; padding:5px; padding-top: 12px;}
+#faq ul li a:hover {color:#fff}
