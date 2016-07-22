@@ -17,9 +17,11 @@ if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 }
 ?>
-	<div id="primary" class="container">
+
+<?php echo do_shortcode("[metaslider id=176]"); ?>
+	<div  class="container">
 		
-						<?php the_content(); ?>
+						<?php //the_content(); ?>
 						
 	 <center>
 	 	<?php
@@ -61,5 +63,5 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 		</div><!-- #content -->
 
 
-<?php get_sidebar(); ?>
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -1,19 +1,16 @@
 <?php
 /**
- * 
- * Template Name: General
+ * The template for displaying all pages
  *
+ *
+ *  Template Name: Chat
  * @package WordPress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */
 
 get_header(); ?>
-<?php
-if ( function_exists('yoast_breadcrumb') ) {
-yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-}
-?>
+
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content container" role="main">
 
@@ -47,22 +44,5 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 		</div><!-- #content -->
 	</div><!-- #primary -->
 
-
- <div class="cuadro15">
-<?php 
-$key="imagenfooter"; 
-?>
-            <img src="../<?php echo get_post_meta($post->ID, $key, true); ?>" class="img-responsive image" alt="Imagen responsive" align="left" style="margin-bottom:15px; margin-top:15px;"/>
-
-<?php 
-$key="textofooter"; 
-echo get_post_meta($post->ID, $key, true); 
-
-?>
-
- </div>
-
-
-
-<?php //get_sidebar(); ?>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

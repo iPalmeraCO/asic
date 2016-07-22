@@ -11,29 +11,44 @@
 ?>
 
 		</div><!-- #main -->
-		
+    
 		<div class="ultimocuadro">
             <ul style="float:left; margin-right:100px;">
-                <a id="text5" href="index.html">Home</a><br>
-                <a id="text5" href="conocenos.html">Conocenos</a><br>
-                <a id="text5" href="unete.html">Unete a Asic</a><br>
-                <a id="text5" href="clientes_aliados.html">Clientes y Aliados</a><br>
-                <a id="text5" href="conectate.html">Conéctate</a><br>
-                <a id="text5" href="blog.html">Tú Blog</a>
-                </ul>
+                <a id="text5" href="<?php echo site_url(); ?>">Home</a><br>
+
+                <?php $items = wp_get_nav_menu_items( "main-menu" ); 
+                $exludes= array('115','144','165');
+                    foreach($items as $item)
+                    {
+                        if (!in_array($item->ID,$exludes)){
+                                if ( $item->menu_item_parent == 0 ) :
+                                           echo "<a id='text5' href='".$item->url."'>".$item->title."</a><br>";
+                                endif;
+                         }
+                    }
+                ?>    
+            </ul>
             <ul style="float:left; margin-right:80px;">
-                <a id="text5" href="servicios-nube.html">Nube</a><br>
-                <a id="text5" href="servicios-sts.html">STS</a><br>
-                <a id="text5" href="servicios-sertic.html">Sertic</a><br>
-                <a id="text5" href="servicios-optim.html">Optim</a><br>
-                <a id="text5" href="servicios-open.html">Open</a>
-                </ul>
+                 <?php $items = wp_get_nav_menu_items( "main-menu" ); 
+                    $parent= array('115');
+                        foreach($items as $item)
+                        {                   
+                              if (in_array($item->menu_item_parent,$parent)){                             
+                                               echo "<a id='text5' href='".$item->url."'>".$item->title."</a><br>";                                
+                             }
+                        }
+                ?>  
+             </ul>
                 <ul>
-                <a id="text5" href="productos_punto_venta.html">Punto de venta</a><br>
-                <a id="text5" href="productos_autoservicio.html">Soluciones de auto servicio</a><br>
-                <a id="text5" href="productos_continuidad.html">Continuidad de negocio</a><br>
-                <a id="text5" href="productos_licenciamiento.html">Licenciamiento</a><br>
-                <a id="text5" href="productos_infraestructura.html">Infraestructura</a>
+                      <?php $items = wp_get_nav_menu_items( "main-menu" ); 
+                    $parent= array('144');
+                        foreach($items as $item)
+                        {                   
+                              if (in_array($item->menu_item_parent,$parent)){                             
+                                               echo "<a id='text5' href='".$item->url."'>".$item->title."</a><br>";                                
+                             }
+                        }
+                    ?> 
                 </ul>
     </div>
     

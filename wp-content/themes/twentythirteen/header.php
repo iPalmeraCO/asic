@@ -36,12 +36,12 @@
 	<div id="page" class="hfeed site">
 
 		   <div id="cuadro">
-            <p id="text1">Carrera 7 No. 74-56 Edificio Corporación Financiera de Caldas Oficina 102 Tel: +571 376 9333</p>
+            	<?php echo dynamic_sidebar('sidebar-2'); ?>
             </div>
     <div class="container">
 		<header id="masthead" role="banner">		
 		<div class="flota">
-            <a class='flotante' href='chat.html'><img src="images/boton_flotante.png" border="0" /></a>
+            <a class='flotante' href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/boton_flotante.png" border="0" /></a>
             </div>
         
  

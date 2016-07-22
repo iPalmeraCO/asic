@@ -6867,3 +6867,37 @@ height: 40px;
 #faq ul li {background-color:#fff; font-size:1.1em; list-style:none;line-height: 1.5em;margin-bottom:10px;}
 #faq ul li a {color:#069; padding:5px; padding-top: 12px;}
 #faq ul li a:hover {color:#fff}
+
+.postbyyear , .postbymonth{
+  margin: 0;
+    padding: 0;
+    list-style: none;
+    list-style-image: none;
+    border-width: 0;
+    cursor: pointer;
+}
+.postbymonth{
+  margin-left: 30px;
+}
+
+.blogp{
+  margin-left: 30px;
+}
+
+.inline{
+  display: inline-block;
+}
+.flota{
+  z-index: 99999999999999;
+}
+
+.envichat input{
+  color:#FFF;
+}
+
+.titcontahome h3{
+  color: #e30613;
+    font-weight: bold;
+    font-size: 1.8em;
+    float: left;
+}
