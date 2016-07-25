@@ -36,7 +36,8 @@
 	<div id="page" class="hfeed site">
 
 		   <div id="cuadro">
-            	<?php echo dynamic_sidebar('sidebar-2'); ?>
+		   		<p id="text1">Carrera 7 No. 74-56 Edificio Corporación Financiera de Caldas Oficina 102 Tel: +571 376 9333</p>
+            	<?php //echo dynamic_sidebar('sidebar-2'); ?>
             </div>
     <div class="container">
 		<header id="masthead" role="banner">		

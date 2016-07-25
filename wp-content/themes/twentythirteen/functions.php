@@ -243,7 +243,7 @@ function twentythirteen_widgets_init() {
 		'description'   => __( 'Appears on posts and pages in the sidebar.', 'twentythirteen' ),
 		'before_widget' => '',
 		'after_widget'  => '',
-		'before_title'  => '<h3 class="widget-title">',
+		'before_title'  => '<h3 id="%1$s" class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
 
