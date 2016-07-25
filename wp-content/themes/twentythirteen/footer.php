@@ -13,6 +13,8 @@
 		</div><!-- #main -->
     
 		<div class="ultimocuadro">
+            <div class="row container">
+                <div class="col-md-12">
             <ul style="float:left; margin-right:100px;">
                 <a id="text5" href="<?php echo site_url(); ?>">Home</a><br>
 
@@ -50,6 +52,8 @@
                         }
                     ?> 
                 </ul>
+                </div>
+            </div>
     </div>
     
 	</div><!-- #page -->

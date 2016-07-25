@@ -375,20 +375,19 @@ div.nav-menu > ul {
 	line-height: 1;
 	padding: 15px 20px;
 	text-decoration: none;
+	font-family: Helvetica;
 }
 
 .nav-menu li:hover > a,
 .nav-menu li a:hover,
 .nav-menu li:focus > a,
 .nav-menu li a:focus {
-	background-color: #220e10;
-	color: #fff;
+	background-color: #FFF;	
 }
 
 .nav-menu .sub-menu,
 .nav-menu .children {
-	background-color: #220e10;
-	border: 2px solid #f7f5e7;
+	/*border: 2px solid #f7f5e7;*/
 	border-top: 0;
 	padding: 0;
 	position: absolute;
@@ -409,7 +408,7 @@ div.nav-menu > ul {
 
 ul.nav-menu ul a,
 .nav-menu ul ul a {
-	color: #fff;
+	background-color: #FFF;	
 	margin: 0;
 	width: 200px;
 }
@@ -418,7 +417,7 @@ ul.nav-menu ul a:hover,
 .nav-menu ul ul a:hover,
 ul.nav-menu ul a:focus,
 .nav-menu ul ul a:focus {
-	background-color: #db572f;
+	background-color: #FFF;
 }
 
 ul.nav-menu li:hover > ul,
@@ -436,7 +435,7 @@ ul.nav-menu .focus > ul,
 .nav-menu .current-menu-item > a,
 .nav-menu .current-menu-ancestor > a {
 	color: #bc360a;
-	font-style: italic;
+	
 }
 
 .menu-toggle {
@@ -1399,7 +1398,7 @@ footer.entry-meta {
 }
 
 .navigation a:hover {
-	color: #ea9629;
+	color: #e30613;
 	text-decoration: none;
 }
 

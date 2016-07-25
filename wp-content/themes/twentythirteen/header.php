@@ -41,7 +41,7 @@
     <div class="container">
 		<header id="masthead" role="banner">		
 		<div class="flota">
-            <a class='flotante' href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/boton_flotante.png" border="0" /></a>
+            <a class='flotante' href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chat.png" border="0" /></a>
             </div>
         
  

@@ -3,7 +3,25 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+@font-face {
+    font-family: 'montserratregular';
+    src: url('fonts/montserrat/montserrat-regular-webfont.woff2') format('woff2'),
+         url('fonts/montserrat/montserrat-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'montserratbold';
+    src: url('fonts/montserrat/montserrat-bold-webfont.woff2') format('woff2'),
+         url('fonts/montserrat/montserrat-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -1207,7 +1225,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: inherit;
+  font-family: montserratbold;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -6203,7 +6221,7 @@ button.close {
 	position: relative;
 }
 * {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:montserratregular;
     text-decoration: none;
     margin:0px;
     padding:0px;
@@ -6287,11 +6305,20 @@ button.close {
 	top: -8px;
     padding: 2% 8%;
 }
+#text42{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.8em;
+    text-align: center;
+}
 #text4{
     color: #ffffff;
     font-weight: bold;
     font-size: 2em;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
+
 #cuadro{
 	z-index: 19;
 	border-style: none;
@@ -6305,10 +6332,10 @@ button.close {
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;
-	top: -8px;
-	position: relative;
-    padding: 2% 4% 4% 8%;
+	background-color: #e30613;	  
+  margin-top: 5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 #text5{
     color: #ffffff;
@@ -6340,11 +6367,10 @@ hr{
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #000000;
-	top: 10px;
-	position: relative;
-	padding: 2% 10%;
-    font-size: 0.8em;
+	background-color: #000000;		
+	padding: 2% 0%;
+  
+  font-size: 0.8em;
 }
 .flota {
     height: 70px;
@@ -6387,6 +6413,7 @@ hr{
     font-size: 1.5em;
     font-weight: bold;
     color: #4d4d4d;
+    margin-top: 20px;
 }
 #cuadro3{
 	z-index: 19;
@@ -6481,12 +6508,10 @@ padding-bottom: 14px;
     color: #76aa2a;
 }
 .cuadro10{
-    float: left;
-	border-style: none;
+  border-style: none;
 	border-color: transparent;
 	background-color: #76aa2a;
-	position: relative;
-    padding: 2% 6%;
+	padding: 2% 6%;
 }
 
 /*----------------------- Servicios - Open -------------------------------- */
@@ -6517,7 +6542,7 @@ padding-bottom: 14px;
 }
 
 .cuadro11{
-    float: left;
+    
 	border-style: none;
 	border-color: transparent;
 	background-color: #893e9a;
@@ -6541,9 +6566,11 @@ padding-bottom: 14px;
     padding: 2% 6%;
 }
 .text30{
-    color: #ffffff;
+ color: #ffffff;
     font-weight: bold;
-    font-size: 1.7em;
+    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 /*----------------------- Servicios - Punto de venta -------------------------------- */
 #text19{
@@ -6696,47 +6723,58 @@ hr.vertical
 }
 
 .list_serviazul{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_azul.png'); 
 }
 .list_serviazul2{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_azuloscuro.png'); 
 }
 .list_serviverde{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_verde.png'); 
 }
 .list_serviviole{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_violeta.png'); 
 }
 .list_serviviole{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_violeta.png'); 
 }
 .list_serviviole2{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_violetaoscuro.png'); 
 }
 .list_servinaran{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_naranja.png'); 
 }
 .list_servinaran2{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_naranjadi.png'); 
 }
 
 .list_servimari{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_marino.png'); 
 }
 .list_serviverde{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_verdedi.png'); 
 }
 .list_servirosa{
+  margin-left: 15px;
   list-style: square;
   list-style-image: url('images/circulo_rosa.png'); 
 }
@@ -6900,4 +6938,51 @@ height: 40px;
     font-weight: bold;
     font-size: 1.8em;
     float: left;
+}
+.serviciohome{
+  margin-top: 10px;
+}
+
+.producol{
+  min-height: 600px;
+}
+
+.prod2{
+  margin-top: 9.5%;
+}
+
+.blogshome{
+  margin-top: 20px;
+}
+.blogshome .image img{
+  width: 100%;
+}
+.blogs{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.verblogs{
+      border: #e30613 3px solid;
+    background-color: #ffffff;
+    float: right;    
+    border-radius: 6px;
+    text-align: center;
+    padding: 5%;
+        padding: 5px 25px;
+        margin-top: 20px;
+}
+
+.elfo img{
+  min-height: 240px;
+}
+
+.flotante{
+      z-index: 99999999999999;
+    position: fixed;
+    top: 300px;
+    right: 0px;
+}
+
+.flotante img {
+  width: 90px;
 }

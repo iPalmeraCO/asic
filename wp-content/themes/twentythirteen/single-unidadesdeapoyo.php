@@ -19,12 +19,18 @@ $feat_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 }
 ?>
-<div class="container">
-	<div class="row">	
+
+	
 		<div class="imgservicios">
 			<img src="<?php echo $feat_image; ?>"> 
 		</div>		
-	</div>
+
+
+
+
+
+<div class="container">
+
 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">	
 	<?php the_content(); ?>
 
@@ -52,7 +58,7 @@ if ( $the_query->have_posts() ) {
             </div>
             <div class="col-md-8 text">
             	<h6 class="titprod"> <?php the_title(); ?> </h6>
-            	<h6> <?php echo  $text; ?> </h6>
+            	<p> <?php echo  $text; ?> </p>
             </div>
             
         </div>
@@ -93,7 +99,7 @@ if ( $the_query->have_posts() ) {
             	<a href="<?php echo get_permalink(); ?>"><img src="<?php echo $rutimg; ?>" class="img-responsive image" alt="Imagen responsive" ></a>
             </div>
             <div class="col-md-8 text">
-            	<h6> <?php echo  $text; ?> </h6>
+            	<p> <?php echo  $text; ?> </p>
             </div>
             
         </div>
@@ -169,6 +175,6 @@ if ( $the_query->have_posts() ) {
 		</div><!-- #content -->
 	</div><!-- #primary -->
 
-<?php get_sidebar(); ?>
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>
 

@@ -561,3 +561,26 @@ function twentythirteen_customize_preview_js() {
 	wp_enqueue_script( 'twentythirteen-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20141120', true );
 }
 add_action( 'customize_preview_init', 'twentythirteen_customize_preview_js' );
+
+function print_excerpt($length) { // length es la cantidad máxima de caracteres a msotrar
+ global $post;
+ $text = $post->post_excerpt;
+ if ( '' == $text ) {
+  $text = get_the_content('');
+  $text = apply_filters('the_content', $text);
+  $text = str_replace(']]>', ']]>', $text);
+ }
+ $text = strip_shortcodes($text); // opcional pero recomendado que quita los shortcodes
+ $text = strip_tags($text); // usar ' $text = strip_tags($text,'<p><a>'); ' si se quieren dejar algunas etiquetas.
+ 
+ $text = substr($text,0,$length);
+ $excerpt = reverse_strrchr($text, '.', 1);
+ if( $excerpt ) {
+  echo apply_filters('the_excerpt',$excerpt);
+ } else {
+  echo apply_filters('the_excerpt',$text);
+ }
+}
+function reverse_strrchr($haystack, $needle, $trail) {
+    return strrpos($haystack, $needle) ? substr($haystack, 0, strrpos($haystack, $needle) + $trail) : false;
+}
