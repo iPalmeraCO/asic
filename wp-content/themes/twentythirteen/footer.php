@@ -14,9 +14,9 @@
     
 		<div class="ultimocuadro">
             <div class="row container">
-                <div class="col-md-12">
+                <div class="col-md-2 col-sm-4 col-xs-12">
             <ul style="float:left; margin-right:100px;">
-                <a id="text5" href="<?php echo site_url(); ?>">Home</a><br>
+                
 
                 <?php $items = wp_get_nav_menu_items( "main-menu" ); 
                 $exludes= array('115','144','165');
@@ -30,6 +30,8 @@
                     }
                 ?>    
             </ul>
+          </div>
+          <div class="col-md-2 col-sm-4 col-xs-12">
             <ul style="float:left; margin-right:80px;">
                  <?php $items = wp_get_nav_menu_items( "main-menu" ); 
                     $parent= array('115');
@@ -41,6 +43,8 @@
                         }
                 ?>  
              </ul>
+           </div>
+           <div class="col-md-2 col-sm-4  col-xs-12">
                 <ul>
                       <?php $items = wp_get_nav_menu_items( "main-menu" ); 
                     $parent= array('144');

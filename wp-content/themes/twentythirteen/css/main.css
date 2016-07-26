@@ -6986,3 +6986,24 @@ height: 40px;
 .flotante img {
   width: 90px;
 }
+
+.slogan{
+  padding-left: 0px;
+}
+
+.menu-main-menu-container, #buscador{
+  display: inline-block;
+}
+#formbuscar{
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .serviciohome img {
+        margin: 0px auto;
+  }
+
+  .producol div img {
+    margin: 0px auto;  
+  }
+}

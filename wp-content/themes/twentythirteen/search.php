@@ -15,7 +15,7 @@ get_header(); ?>
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'twentythirteen' ), get_search_query() ); ?></h1>
+				<h1 class="page-title"><?php printf( __( 'Resultados para: %s', 'twentythirteen' ), get_search_query() ); ?></h1>
 			</header>
 
 			<?php /* The loop */ ?>
@@ -32,5 +32,5 @@ get_header(); ?>
 		</div><!-- #content -->
 	</div><!-- #primary -->
 
-<?php get_sidebar(); ?>
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>
