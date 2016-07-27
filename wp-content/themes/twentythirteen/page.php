@@ -20,6 +20,11 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content container" role="main">
 
+			<div id="chatmobile" class="col-xs-12">
+            <a href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chatmobile.png"></a>
+        </div>
+        
+
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 

@@ -17,6 +17,10 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content container" role="main">
 
+			<div id="chatmobile" class="col-xs-12">
+            <a href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chatmobile.png"></a>
+        </div>
+
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
@@ -49,17 +53,21 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 
 
  <div class="cuadro15">
+ 	<div class="row">
 <?php 
 $key="imagenfooter"; 
 ?>
+	<div class="col-md-6 col-sm-12 col-xs-12 imgconocenos">
             <img src="../<?php echo get_post_meta($post->ID, $key, true); ?>" class="img-responsive image" alt="Imagen responsive" align="left" style="margin-bottom:15px; margin-top:15px;"/>
-
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
 <?php 
 $key="textofooter"; 
 echo get_post_meta($post->ID, $key, true); 
 
 ?>
-
+	</div>
+	</div>
  </div>
 
 

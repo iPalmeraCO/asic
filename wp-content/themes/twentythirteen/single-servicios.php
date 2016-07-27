@@ -21,12 +21,16 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 		<div class="imgservicios">
 			<img src="<?php echo $feat_image; ?>">
 		</div>		
+
+		<div id="chatmobile" class="col-xs-12">
+            <a href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chatmobile.png"></a>
+        </div>
 	
 <div class="container">
-<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">	
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">	
 	<?php the_content(); ?>
 </div>
-	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                 <p id="text7">Otros Servicios</p>
                  <div class="servicios">
                  	<?php
@@ -44,10 +48,10 @@ if ( $the_query->have_posts() ) {
 
 		?>
 		 <div class="contentservicios">
-		 	<div class="col-md-4 img">
+		 	<div class="col-md-4 img col-sm-3 col-xs-3">
             	<a href="<?php echo get_permalink(); ?>"><img src="<?php echo $rutimg; ?>" class="img-responsive image" alt="Imagen responsive" ></a>
             </div>
-            <div class="col-md-8 text">
+            <div class="col-md-8 text col-xs-9">
             	<p> <?php echo  $text; ?> </p>
             </div>
             
@@ -67,7 +71,7 @@ if ( $the_query->have_posts() ) {
  </div>
  </div>
 
- <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+ <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                 <p id="text7">Productos</p>
                  <div class="productos">
                  	<?php
@@ -85,10 +89,10 @@ if ( $the_query->have_posts() ) {
 
 		?>
 		 <div class="contentservicios">
-		 	<div class="col-md-4 img">
+		 	<div class="col-md-4 col-sm-3 img col-xs-3">
             	<a href="<?php echo get_permalink(); ?>"><img src="<?php echo $rutimg; ?>" class="img-responsive image" alt="Imagen responsive" ></a>
             </div>
-            <div class="col-md-8 text">
+            <div class="col-md-8 col-sm-9  text col-xs-9">
             	<h6 class="titprod"> <?php the_title(); ?> </h6>
             	<p> <?php echo  $text; ?> </p>
             </div>
@@ -107,7 +111,8 @@ if ( $the_query->have_posts() ) {
                
 
  </div>
-
+</div>
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
      <p id="text7">Unidades de apoyo</p>
                  <div class="servicios">
                  	<div class="contentservicios">
@@ -126,7 +131,7 @@ if ( $the_query->have_posts() ) {
 
 		?>
 		 
-		 	<div class="col-md-4 img">
+		 	<div class="col-md-4 col-sm-6  col-xs-6 img">
             	<a href="<?php echo get_permalink(); ?>"><img src="<?php echo $rutimg; ?>" class="img-responsive image" alt="Imagen responsive" ></a>
             </div>
             

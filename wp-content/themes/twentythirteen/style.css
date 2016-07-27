@@ -2337,7 +2337,7 @@ footer.entry-meta {
 	}
 }
 
-@media (max-width: 643px) {
+@media (max-width: 800px) {
 	.site-title {
 		font-size: 30px;
 	}
@@ -2390,14 +2390,14 @@ footer.entry-meta {
 	}
 
 	.menu-toggle:after {
-		content: "\f502";
+		/*content: "\f502";*/
 		font-size: 12px;
 		padding-left: 8px;
 		vertical-align: -4px;
 	}
 
 	.toggled-on .menu-toggle:after {
-		content: "\f500";
+		/*content: "\f500";*/
 		vertical-align: 2px;
 	}
 

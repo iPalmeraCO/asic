@@ -76,6 +76,9 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 										<a href="<?php echo get_permalink(); ?>"><h2 class="titconta"><?php echo the_title(); ?></h2></a>
            							</div>
            							<div class="col-md-12 titleblog">
+                                        <div class="col-md-12 imagetublog">
+                                            <?php echo get_the_post_thumbnail( $_post->ID, 'thumbnail' ); ?>
+                                        </div>                                        
 										<?php echo the_content(); ?>
            							</div>
            							<div class="col-md-12 autor">

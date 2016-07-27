@@ -64,8 +64,15 @@
             </div>
 
 			<div id="navbar" class="navbar">
+				
 				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
-					<button class="menu-toggle"><?php _e( 'Menu', 'twentythirteen' ); ?></button>
+					<!--<button class="menum" aria-expanded="true" aria-controls="primary-menu">
+						<img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/menumobile.png" border="0" />
+					</button>-->
+						<button class="menu-toggle">
+						<img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/menumobile.png" border="0" />
+						<?php //_e( 'Menu', 'twentythirteen' ); ?></button>
+					
 					<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>"><?php _e( 'Skip to content', 'twentythirteen' ); ?></a>
 					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu' ) ); ?>
 					<div id="buscador">

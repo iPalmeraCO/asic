@@ -14,7 +14,7 @@
     
 		<div class="ultimocuadro">
             <div class="row container">
-                <div class="col-md-2 col-sm-4 col-xs-12">
+                <div class="col-md-3 col-sm-4 col-xs-12">
             <ul style="float:left; margin-right:100px;">
                 
 
@@ -44,7 +44,7 @@
                 ?>  
              </ul>
            </div>
-           <div class="col-md-2 col-sm-4  col-xs-12">
+           <div class="col-md-4 col-sm-4  col-xs-12">
                 <ul>
                       <?php $items = wp_get_nav_menu_items( "main-menu" ); 
                     $parent= array('144');
@@ -58,6 +58,10 @@
                 </ul>
                 </div>
             </div>
+    </div>
+
+    <div id="footermobile">
+        <?php dynamic_sidebar( 'sidebar-4' ); ?>  
     </div>
     
 	</div><!-- #page -->
