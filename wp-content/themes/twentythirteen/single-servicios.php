@@ -112,6 +112,7 @@ if ( $the_query->have_posts() ) {
 
  </div>
 </div>
+<div class="col-md-8"></div>
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
      <p id="text7">Unidades de apoyo</p>
                  <div class="servicios">
