@@ -75,9 +75,7 @@
 					
 					<a class="screen-reader-text skip-link" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentythirteen' ); ?>"><?php _e( 'Skip to content', 'twentythirteen' ); ?></a>
 					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu', 'menu_id' => 'primary-menu' ) ); ?>
-					<div id="buscador">
-						<a onclick="buscar()"><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/icono_buscar.png?>"></a>
-					</div>
+				
 					<div id="formbuscar">
 						<?php get_search_form(); ?>
 					</div>
