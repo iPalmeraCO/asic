@@ -11,6 +11,28 @@
 $feat_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) );
 ?>
 <?php get_header(); ?>
+<script type="text/javascript">
+function vermas(div){
+	if (div==1){
+		$(".ver1").toggle();
+		if ($(".ver1").is( ":visible" )){
+			$("#ver1").val("Ver menos");
+		} else {
+			$("#ver1").val("Ver más");
+		}
+	} else{
+		$(".ver2").toggle();
+			if ($(".ver2").is( ":visible" )){
+			$("#ver2").val("Ver menos");
+		} else {
+			$("#ver2").val("Ver más");
+		}
+
+	}
+
+
+}
+</script>
 <?php
 if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<p id="breadcrumbs">','</p>');
