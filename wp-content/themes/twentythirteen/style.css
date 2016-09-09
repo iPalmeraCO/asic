@@ -391,6 +391,7 @@ color:transparent;
 .nav-menu li:focus > a,
 .nav-menu li a:focus {
 	background-color: #FFF;	
+	border-bottom: 2px solid #E4002B;
 }
 
 .nav-menu .sub-menu,
@@ -425,7 +426,8 @@ ul.nav-menu ul a:hover,
 .nav-menu ul ul a:hover,
 ul.nav-menu ul a:focus,
 .nav-menu ul ul a:focus {
-	background-color: #FFF;
+	color: #FFF;
+	background-color: #E4002B;
 }
 
 ul.nav-menu li:hover > ul,
@@ -442,7 +444,7 @@ ul.nav-menu .focus > ul,
 .nav-menu .current_page_ancestor > a,
 .nav-menu .current-menu-item > a,
 .nav-menu .current-menu-ancestor > a {
-	color: #bc360a;
+	color: #E4002B;
 	
 }
 
@@ -1406,7 +1408,7 @@ footer.entry-meta {
 }
 
 .navigation a:hover {
-	color: #e30613;
+	color: #E4002B;
 	text-decoration: none;
 }
 

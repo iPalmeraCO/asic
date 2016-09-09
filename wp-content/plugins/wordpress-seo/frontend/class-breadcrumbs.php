@@ -801,10 +801,15 @@ class WPSEO_Breadcrumbs {
 	private function links_to_string() {
 		if ( is_array( $this->links ) && $this->links !== array() ) {
 			// Remove any effectively empty links.
-			$links = array_map( 'trim', $this->links );
-			$links = array_filter( $links );
+			$brea = $this->links[0];
+			unset($this->links[0]);
 
-			$this->output = implode( $this->separator, $links );
+			$links = array_map( 'trim', $this->links );
+			
+			$links = array_filter( $links );
+			$retorno = implode( $this->separator, $links );
+			$brea = $brea." ".$retorno;
+			$this->output = $brea;
 		}
 	}
 

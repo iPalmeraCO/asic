@@ -6153,7 +6153,7 @@ button.close {
 }
 /*----------------------- Home -------------------------------- */
 #cuadro{
-    background-color: #e30613;
+    background-color: #E4002B;
 	border-style: none;
 	border-color: transparent;
 	position: relative;
@@ -6288,7 +6288,7 @@ button.close {
 }
 
 #text3{
-    color: #e30613;
+    color: #E4002B;
     font-weight: bold;
     font-size: 1.8em;
     float: left;
@@ -6323,7 +6323,7 @@ button.close {
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;
+	background-color: #E4002B;
 	top: -8px;
 	position: relative;
 	padding: 20px 10px 10px 75px;
@@ -6332,7 +6332,7 @@ button.close {
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;	  
+	background-color: #E4002B;	  
   margin-top: 5%;
   padding-top: 5%;
   padding-bottom: 5%;
@@ -6342,6 +6342,11 @@ button.close {
     text-align: left;
     font-size: 1.5em;
 }
+#text5:hover{
+    color: #E4002B;
+  
+}
+
 .cuadro2{
 	z-index: 19;
 	border-style: none;
@@ -6359,7 +6364,7 @@ button.close {
 	padding: 2% 6%;
 }
 hr{
-    background-color: #e30613;
+    background-color: #E4002B;
   height: 2px;
   width: 100%;
 }
@@ -6407,7 +6412,7 @@ hr{
 	top: -8px;
 }
 #text6{
-    color: #e30613;
+    color: #E4002B;
 }
 #text7{
     font-size: 1.5em;
@@ -6420,7 +6425,7 @@ hr{
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;
+	background-color: #E4002B;
 	top: 10px;
 	position: relative;
 	padding: 20px 91px 28px 92px;
@@ -6428,7 +6433,7 @@ hr{
 #text8{
     font-size: 1em;
     font-weight: bold;
-    color: #e30613;
+    color: #E4002B;
     text-align: left;
     margin-top: 4px;
 }
@@ -6453,12 +6458,12 @@ hr{
 #text10{
     font-size: 2.5em;
     font-weight: bold;
-    color: #e30613;;
+    color: #E4002B;;
 }
 .cuadro15{
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;
+	background-color: #E4002B;
 	position: relative;
 	padding: 2% 6%;
 }
@@ -6608,7 +6613,7 @@ padding-bottom: 14px;
 #text27{
     font-size: 1em;
     font-weight: bold;
-    color: #e30613;
+    color: #E4002B;
 }
 
 .cuadro5{
@@ -6637,14 +6642,14 @@ hr.vertical
 }
 /*----------------------- Clientes y aliados -------------------------------- */
 #text26{
-    color: #e30613;
+    color: #E4002B;
 }
 
 #cuadro7{
 	z-index: 19;
 	border-style: none;
 	border-color: transparent;
-	background-color: #e30613;
+	background-color: #E4002B;
 	top: -8px;
 	position: relative;
 	padding: 2% 6% ;
@@ -6665,7 +6670,7 @@ hr.vertical
 }
 /*----------------------- Chat -------------------------------- */
 .text27{
-    color: #e30613;
+    color: #E4002B;
     font-weight: bold;
     font-size: 1.8em;
     text-align: center;
@@ -6679,7 +6684,7 @@ hr.vertical
     text-align: center;
 }
 .cuadro16{
-    background-color: #e30613;
+    background-color: #E4002B;
 	border-style: none;
 	border-color: transparent;
 	position: relative;
@@ -6713,14 +6718,20 @@ hr.vertical
 
 #breadcrumbs{
   text-align: center;
-  color: red;
+  color: #4d4d4d;
   font-weight: bold;
   margin-bottom: 20px;
   margin-top: 10px;
 }
 #breadcrumbs span span a {
-   color: red;
+   color: #4d4d4d;
    font-weight: bold;
+   
+}
+
+.breadcrumb_last{
+color: #E4002B;
+font-weight: bold;
 }
 
 .imgservicios img{
@@ -6799,7 +6810,7 @@ hr.vertical
 .titprod {
     font-size: 1em;
     font-weight: bold;
-    color: #e30613;
+    color: #E4002B;
     text-align: left;
     margin-top: 4px;
 }
@@ -6809,14 +6820,14 @@ hr.vertical
 }
 .campoform span input  {
  width: 100%;
- border: #e30613 1px solid;
+ border: #E4002B 1px solid;
  height: 40px;
  border-radius: 6px;
 }
 
 .campoform span textarea {
   width: 100%;
-  border: #e30613 1px solid;
+  border: #E4002B 1px solid;
   border-radius: 6px;
 }
 
@@ -6837,7 +6848,7 @@ hr.vertical
     filter: alpha(opacity=0);
 }
 .enviarform input{
-     background-color: #e30613;
+     background-color: #E4002B;
     float: right;
     width: 150px;
     border-radius: 6px;
@@ -6845,7 +6856,7 @@ hr.vertical
         font-size: 20px;
 }
 .tituloform{
-      background-color: #e30613;
+      background-color: #E4002B;
       width: 100%;
           font-weight: bold;
     font-size: 1.6em;
@@ -6882,7 +6893,7 @@ height: 40px;
 }
 .enviarform2 input{
       border: #ffffff 4px solid;
-    background-color: #e30613;
+    background-color: #E4002B;
     float: right;
     width: 150px;
     border-radius: 6px;
@@ -6894,7 +6905,7 @@ height: 40px;
 .titconta{
       font-size: 1em;
     font-weight: bold;
-    color: #e30613;
+    color: #E4002B;
     text-align: left;
     margin-top: 4px;
 }
@@ -6940,7 +6951,7 @@ height: 40px;
 }
 
 .titcontahome h3{
-  color: #e30613;
+  color: #E4002B;
     font-weight: bold;
     font-size: 1.8em;
     float: left;
@@ -6968,7 +6979,7 @@ height: 40px;
   margin-bottom: 20px;
 }
 .verblogs{
-      border: #e30613 3px solid;
+      border: #E4002B 3px solid;
     background-color: #ffffff;
     float: right;    
     border-radius: 6px;
@@ -7006,7 +7017,7 @@ height: 40px;
 }
 
 #formbuscar > form > label > input{
-  border: 1px solid #e30613 ;
+  border: 1px solid #E4002B ;
 }
 
 .te{
@@ -7023,7 +7034,7 @@ height: 40px;
 }
 
 .blogcontainer{   
-    border-bottom: 1px solid #e30613;
+    border-bottom: 1px solid #E4002B;
     margin-bottom: 30px;
 }
 
@@ -7040,7 +7051,7 @@ height: 40px;
 }
 
 .titmov{
-  color:#e30613;
+  color:#E4002B;
   font-size: 1.5em;
   font-weight: bold;    
   margin-top: 20px;

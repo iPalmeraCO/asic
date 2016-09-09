@@ -265,6 +265,41 @@ function twentythirteen_widgets_init() {
 		'before_title'  => '<h3 class="widget-title">',
 		'after_title'   => '</h3>',
 	) );
+				register_sidebar( array(
+		'name'          => __( 'Footer Text Intranet', 'twentythirteen' ),
+		'id'            => 'sidebar-5',
+		'description'   => __( 'Footer  Text Intranet', 'twentythirteen' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+						register_sidebar( array(
+		'name'          => __( 'Footer Imagen Intranet', 'twentythirteen' ),
+		'id'            => 'sidebar-6',
+		'description'   => __( 'Footer  Imagen Intranet', 'twentythirteen' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+								register_sidebar( array(
+		'name'          => __( 'Footer Redes Sociales Intranet', 'twentythirteen' ),
+		'id'            => 'sidebar-7',
+		'description'   => __( 'Footer  Redes Sociales Intranet', 'twentythirteen' ),
+		'before_widget' => '<div id="%1$s" class="col-md-2 col-sm-2 col-xs-2 red">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+														register_sidebar( array(
+		'name'          => __( 'Logo Intranet', 'twentythirteen' ),
+		'id'            => 'sidebar-8',
+		'description'   => __( 'Logo Intranet', 'twentythirteen' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		
+	) );
 
 
 }
