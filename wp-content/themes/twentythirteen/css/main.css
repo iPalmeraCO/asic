@@ -7216,3 +7216,53 @@ height: 40px;
 
 
 }
+.foots{
+    position: absolute;
+    bottom: 0px;
+    
+        padding-top: 13px;
+    padding-bottom: 10px;
+        opacity: 0.9;
+        display: none;
+            width: 100%;
+}
+
+.nube{
+  background-color: #6fb0dd;
+}
+
+.sts{
+  background-color: #799c3c;
+}
+.sertic{
+ background-color: #76409a;
+}
+
+.optim {
+ background-color: #388ec4;
+}
+
+.open {
+background-color: #ba5d02;
+}
+
+.servi:hover .foots{
+  display: block;
+}
+.servbanner{
+  width: 100%;
+}
+
+.pa1{
+  padding-right: 0px;
+}
+
+.pa2{
+  padding-left: 0px;  
+  color: #FFF;
+      padding-top: 10px;
+}
+
+.servi >p {
+  margin-bottom: 0px;
+}

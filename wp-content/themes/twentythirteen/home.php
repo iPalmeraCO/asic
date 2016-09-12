@@ -25,18 +25,18 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
             <a href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chatmobile.png"></a>
         </div>
 		
-						<?php //the_content(); ?>
+						<?php the_content(); ?>
 						
 	 <center>
 	 	<?php
-	 	$tit1 =  get_field('titulo1',get_the_ID());
+	 	
 		$tit2  = get_field('titulo2',get_the_ID());
 		?>
 
-           <p id="text2"><?php echo $tit1; ?></p></center>    
             
             
-            <div class="row servicioshome">
+            
+            <!--<div class="row servicioshome">
                     <div class="col-md-12"> <p id="text3">Servicios</p> </div>
                     <div class="col-md-6 col-sm-12 col-xs-12 serviciohome">
                         <a href="servicios/la-nube/"><img src="<?php echo esc_url( site_url() ); ?>/wp-content/uploads/2016/07/servicio1.png" class="img-responsive image" alt="Imagen responsive"/></a>
@@ -56,7 +56,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
                     
                     
                     
-             </div>
+             </div>-->
         </div>
         
             <div class="row cuadro12 pr">
