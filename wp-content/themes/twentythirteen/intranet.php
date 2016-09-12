@@ -22,11 +22,11 @@ $css = "background-image: url('".$rutimg."');";
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 col-sm-3 col-xs-12 logo">					
+				<div class="col-md-4 col-sm-3 col-xs-12 logo">					
 					<?php dynamic_sidebar( 'sidebar-8' ); ?>	
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-8 menu col-sm-9">
+				
+				<div class="col-md-8 menu col-sm-9 con-xs-12">
 				 <nav class="navmenu navbar navbar-inverse" role="navigation">
 					
 					<!-- Brand and toggle get grouped for better mobile display -->

@@ -59,6 +59,7 @@ font-family: montserratregular;
 .navmenu{
 	margin-bottom: 0px;
 	background-color: #FFF;
+
 }
 .sub-menu > li > a {
 	    color: #000;
@@ -153,6 +154,7 @@ font-family: montserratregular;
 }
 .sub-menu li, .menu-item-has-children{
     list-style-type:none;
+
 }
 
 .menu-item-has-children:hover ul{
@@ -259,4 +261,18 @@ font-family: montserratregular;
 	.conte{
 		font-size: 26px;
 	}
+}
+
+@media (min-width: 768px){
+.sub-menu li {
+display: inline-block;
+}
+.navmenu{
+ float: right;
+}
+
+}
+
+.menu {
+	    padding-right: 0px
 }
