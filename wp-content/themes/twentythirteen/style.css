@@ -2339,9 +2339,13 @@ footer.entry-meta {
 	}
 }
 
-@media (max-width: 800px) {
+
+@media (max-width: 1200px) {
 	.site-title {
 		font-size: 30px;
+	}
+	#formbuscar{
+		float: right;
 	}
 
 	#content .entry-header,
@@ -2363,6 +2367,7 @@ footer.entry-meta {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+
 
 	#content .format-status .entry-content,
 	#content .format-status .entry-met {

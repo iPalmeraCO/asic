@@ -67,5 +67,26 @@
 	</div><!-- #page -->
 
 	<?php wp_footer(); ?>
+  <script type="text/javascript">
+
+function ajustar(){
+  var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+  if (width > 1200){
+  var alto = jQuery('.headerasic').height();
+  alto= alto+20;
+  jQuery("#content").css("margin-top",alto+"px");
+}else {
+  jQuery("#content").css("margin-top","0px");
+}
+}
+    jQuery( document ).ready(function() {
+   ajustar();
+});
+jQuery( window ).resize(function() {
+  ajustar();
+});
+
+    
+    </script>
 </body>
 </html>

@@ -1644,6 +1644,20 @@ pre code {
   }
 }
 
+@media (min-width: 1600px) {
+  .container {
+    width: 1440px
+  }
+  #formbuscar {    
+    float: right;
+  }
+  .nav-menu li a {
+        padding: 15px 20px;
+  }
+}
+
+
+
 table {
   background-color: transparent;
 }
@@ -7266,3 +7280,17 @@ background-color: #ba5d02;
 .servi >p {
   margin-bottom: 0px;
 }
+
+@media (min-width: 1200px) {
+  .headerasic
+  {
+    z-index: 29;
+    background: #FFF;
+     width: 100%; 
+    position: fixed;
+    top: 0;
+    
+  }
+
+  
+  }

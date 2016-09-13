@@ -40,7 +40,7 @@
 
 <body <?php body_class(); ?>>
 	<div id="page" class="hfeed site">
-
+		<div class="headerasic">
 		   <div id="cuadro">		   		
             	<?php get_sidebar(); ?>
             </div>
@@ -82,7 +82,8 @@
 				</nav><!-- #site-navigation -->
 			</div><!-- #navbar -->
 		</header><!-- #masthead -->		 
-	</div>     
+	</div>   
+	</div>  
 
 	<div id="content" class="site-content">
 
