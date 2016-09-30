@@ -20,7 +20,7 @@ session_start();
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/jquery.min.js"></script>
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/bootstrap.min.js"></script>		
 		<script type="text/javascript">
-			$(document).ready(function() {
+			/*$(document).ready(function() {
 
 				    
 				    $('form').submit(function(event) {
@@ -91,19 +91,19 @@ session_start();
 				            });
 				});
 
-				});
+				});*/
 		</script>
 	</head>
 <body>
 
 <!-- Trigger the modal with a button -->
 
- <button data-target="#logueo" data-toggle="modal" data-backdrop="static" data-keyboard="false" id="abrirlogueo"></button>`
+ <!--<button data-target="#logueo" data-toggle="modal" data-backdrop="static" data-keyboard="false" id="abrirlogueo"></button>`-->
 <!-- Modal -->
-<div id="logueo" class="modal fade" role="dialog">
+<!--<div id="logueo" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+    
     <div class="modal-content">
       <div class="modal-header">        
         <h4 class="modal-title">Bienvenio(a) a la Intranet de ASIC</h4>
@@ -127,14 +127,14 @@ session_start();
     </div>
 
   </div>
-</div>
+</div>-->
 
 <?php 
-if (isset($_SESSION['usuario'])){
+/*if (isset($_SESSION['usuario'])){
 
 }else { ?>
  <script type="text/javascript">
 $("#abrirlogueo").click();
 </script>
 
-<?php } ?>
+<?php } */ ?>
