@@ -46,7 +46,7 @@ session_start();
 				            	 if ( data.success) {
 				            	 	$('#logueo').modal('hide');
 				            	 	$("#menu-item-416").show();
-				            	 	$("#menu-item-416 a").html("Cerrar Sessión Usuario");
+				            	 	$("#menu-item-416 a").html("Cerrar Sesión Usuario");
 				            	 }else {
 				            	 	alert("Por favor verifica los datos de ingreso");
 				            	 	$("#menu-item-416").hide();
