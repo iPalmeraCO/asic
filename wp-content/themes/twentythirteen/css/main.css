@@ -6166,13 +6166,7 @@ button.close {
   }
 }
 /*----------------------- Home -------------------------------- */
-#cuadro{
-    background-color: #E4002B;
-	border-style: none;
-	border-color: transparent;
-	position: relative;
-	padding: 10px 10px 10px 10px;
-}
+
 #text1{
     color: white;
     font-weight: bold;
@@ -6334,13 +6328,13 @@ button.close {
 }
 
 #cuadro{
-	z-index: 19;
-	border-style: none;
-	border-color: transparent;
-	background-color: #E4002B;
-	top: -8px;
-	position: relative;
-	padding: 20px 10px 10px 75px;
+    z-index: 19;
+    border-style: none;
+    border-color: transparent;
+    background-color: #E4002B;    
+    padding: 6px 3px 2px 0px;
+    margin-bottom: 10px;
+
 }
 .cuadro12{
 	z-index: 19;
@@ -6375,7 +6369,7 @@ button.close {
 	border-color: transparent;
 	background-color: #ffffff;
 	position: relative;
-	padding: 2% 6%;
+	padding: 0% 6% 1%;
 }
 hr{
     background-color: #E4002B;
@@ -6387,9 +6381,9 @@ hr{
 	border-style: none;
 	border-color: transparent;
 	background-color: #000000;		
-	padding: 2% 0%;
+	padding: 1% 0%;
   
-  font-size: 0.8em;
+  font-size: 10px;
 }
 .flota {
    /* height: 70px;
@@ -7294,3 +7288,5 @@ background-color: #ba5d02;
 
   
   }
+
+ 

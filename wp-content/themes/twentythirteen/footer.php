@@ -73,7 +73,7 @@ function ajustar(){
   var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
   if (width > 1200){
   var alto = jQuery('.headerasic').height();
-  alto= alto+20;
+  alto= alto;
   jQuery("#content").css("margin-top",alto+"px");
 }else {
   jQuery("#content").css("margin-top","0px");

@@ -276,3 +276,41 @@ display: inline-block;
 .menu {
 	    padding-right: 0px
 }
+
+#logueo .modal-dialog{
+	    margin: 20% auto;
+}
+
+.camposform {
+	margin-bottom: 10px;
+}
+.camposform input{
+	width: 100%;
+	background: #FFF;
+}
+
+#logueo .modal-title{
+	text-align: center;
+	color : #E4002B;
+}
+
+.modal-body {
+    position: relative;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 15px;
+}
+
+.divsubmit{
+	text-align: center;
+}
+#ingresar{
+	background: #000000;
+}
+
+#logueo .modal-content{
+	background: #fafafa;
+}
+ #abrirlogueo{
+    display: none;
+  }
