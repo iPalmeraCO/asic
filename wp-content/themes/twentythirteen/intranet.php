@@ -56,7 +56,7 @@ $css = "background-image: url('".$rutimg."');";
 		<div class="slide" style="<?php  echo $css; ?>">
 			<div class="contenido">
 					
-					<?php echo $titulo =  get_post_field('titulo',get_the_ID()); ?>					
+					<p class="conte"> <?php echo $titulo =  get_post_field('titulo',get_the_ID()); ?></p>					
 					<p class="conte"> <?php echo $contenido =  get_post_field('contenido',get_the_ID()); ?> </p>
 			</div>
 

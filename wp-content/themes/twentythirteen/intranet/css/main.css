@@ -28,9 +28,9 @@ font-family: montserratregular;
 .slide {
 	
 	background-repeat: no-repeat;
-	height: 580px;
+	height:  490px;
 	/*background-size: 100% auto;*/
-	background-size: cover;
+	/*background-size: cover;*/
 	position: relative;
 	
 }
@@ -108,9 +108,9 @@ font-family: montserratregular;
 
 .contenido{
 	position: absolute;
-	left: 38%;
-	top: 20%;
-	width: 600px;
+	left: 15%;
+	top: 4%;
+	text-align: right;
 }
 .tit1, .tit2{
 	display: inline-block;
@@ -119,7 +119,9 @@ font-family: montserratregular;
 
 }
 .conte{
-	font-size: 48px;
+	 margin-bottom: 0px;
+	font-size: 18px;
+	color: #1489C9;
 }
 
 .tit1{
