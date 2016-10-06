@@ -45,11 +45,11 @@ session_start();
 				            .done(function(data) {
 				            	 if ( data.success) {
 				            	 	$('#logueo').modal('hide');
-				            	 	$("#menu-item-416").show();
-				            	 	$("#menu-item-416 a").html("Cerrar Sesión Usuario");
+				            	 	$("#menu-item-445").show();
+				            	 	$("#menu-item-445 a").html("Cerrar Sesión Usuario");
 				            	 }else {
 				            	 	alert("Por favor verifica los datos de ingreso");
-				            	 	$("#menu-item-416").hide();
+				            	 	$("#menu-item-445").hide();
 				            	 }
 				                // log data to the console so we can see
 				                
@@ -77,7 +77,7 @@ session_start();
 				        
 				    });
 			
-				$('#menu-item-416').click(function(){
+				$('#menu-item-445').click(function(){
   					   $.ajax({
 				            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
 				            url         : "<?php echo get_template_directory_uri(); ?>/ingreso.php", // the url where we want to POST
@@ -86,7 +86,7 @@ session_start();
 				                        encode          : true
 				        })				            
 				            .done(function(data) {				            	 
-				            	 	$("#menu-item-416").hide();
+				            	 	$("#menu-item-445").hide();
 				            	 	$("#abrirlogueo").click();
 				            });
 				});
