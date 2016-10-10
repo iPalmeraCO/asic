@@ -4,8 +4,14 @@
   class LdapAut
   {
 
-    static $ldapserver = "172.20.20.163";
-    static $ldaptree   = "CN=Domain Users,OU=Grupos de seguridad,DC=asic,DC=loc";
+   // static $ldapserver = "maxcrc.com";
+  //  static $ldaptree   = "OU=people,DC=maxcrc,DC=com";
+
+   
+
+ static $ldapserver = "172.20.20.163";
+    static $ldaptree   = "CN=Domain Users,OU=Grupos de seguridad,OU=Cuentas de Servicio,OU=Administracion,DC=asic,DC=loc";
+    // static  $ldaptree  = "OU=Gurpos de seguridad,OU=Cuentas de Servicio,OU=Administracion,DC=asic,DC=loc";
 
     // arbol tree asic OU=Cuentas de Servicio,OU=Administracion,DC=asic,DC=loc
     // server 172.20.20.163
@@ -18,7 +24,7 @@
         Log::error('Error binding to LDAP: codigo or password empty');
       }
       $ldapRdn = static::getLdapRdn($codigo);
-      $ldapcon = ldap_connect(self::$ldapserver, 389);
+      $ldapcon = ldap_connect(self::$ldapserver,389);
       ldap_set_option($ldapcon, LDAP_OPT_PROTOCOL_VERSION, 3);
       $result  = false;
 
