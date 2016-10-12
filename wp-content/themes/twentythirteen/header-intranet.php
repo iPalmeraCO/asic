@@ -52,6 +52,7 @@ session_start();
 				            	 	$('#logueo').modal('hide');
 				            	 	$("#menu-item-445").show();
 				            	 	$("#menu-item-445 a").html("Cerrar Sesión");
+				            	 	location.reload();
 				            	 }else {
 				            	 	alert("Por favor verifica los datos de ingreso");
 				            	 	$("#menu-item-445").hide();
