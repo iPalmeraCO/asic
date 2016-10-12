@@ -152,6 +152,7 @@ $(".usuario").html(ab);
 <?php
 }else { ?>
  <script type="text/javascript">
+ $("#menu-item-445").hide();
 $("#abrirlogueo").click();
 </script>
 
