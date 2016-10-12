@@ -5,7 +5,7 @@
   {
 
     static $ldapserver = "172.20.20.163";
-    static $ldaptree   = "CN=Domain Users,OU=Grupos de seguridad,DC=asic,DC=loc";
+    static $ldaptree   = "OU=usuarios,DC=asic,DC=loc";
 
     // arbol tree asic OU=Cuentas de Servicio,OU=Administracion,DC=asic,DC=loc
     // server 172.20.20.163

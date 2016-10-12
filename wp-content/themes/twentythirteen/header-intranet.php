@@ -19,12 +19,12 @@ session_start();
 		<link rel="stylesheet" type="text/css" href="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/css/main.css">		
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/jquery.min.js"></script>
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/bootstrap.min.js"></script>		
-		<style type="text/css">
+		<!--<style type="text/css">
 		#menu-item-445 {
 			display: none;
 		}
-		</style>
-		<!--<script type="text/javascript">
+		</style>-->
+		<script type="text/javascript">
 			$(document).ready(function() {
 
 				    
@@ -97,7 +97,7 @@ session_start();
 				});
 
 				});
-		</script>-->
+		</script>
 	</head>
 <body>
 
@@ -135,11 +135,11 @@ session_start();
 </div>
 
 <?php 
-/*if (isset($_SESSION['usuario'])){
+if (isset($_SESSION['usuario'])){
 
 }else { ?>
  <script type="text/javascript">
 $("#abrirlogueo").click();
 </script>
 
-<?php }  */ ?>
+<?php }   ?>
