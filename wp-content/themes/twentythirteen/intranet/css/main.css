@@ -22,7 +22,7 @@ font-family: montserratregular;
 
 }
 .menu{
-	margin-top: 70px;
+	margin-top: 40px;
 
 }
 .slide {
@@ -316,3 +316,10 @@ display: inline-block;
  #abrirlogueo{
     display: none;
   }
+
+
+ .usuario {
+  text-align: right;
+      padding-bottom: 20px;
+    padding-right: 3%;
+ }

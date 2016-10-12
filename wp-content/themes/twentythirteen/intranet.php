@@ -27,6 +27,8 @@ $css = "background-image: url('".$rutimg."');";
 				</div>
 				
 				<div class="col-md-8 menu col-sm-9 con-xs-12">
+				<div class="usuario">					
+				</div>
 				 <nav class="navmenu navbar navbar-inverse" role="navigation">
 					
 					<!-- Brand and toggle get grouped for better mobile display -->

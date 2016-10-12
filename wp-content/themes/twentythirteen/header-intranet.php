@@ -51,7 +51,7 @@ session_start();
 				            	 if ( data.success) {
 				            	 	$('#logueo').modal('hide');
 				            	 	$("#menu-item-445").show();
-				            	 	$("#menu-item-445 a").html("Cerrar Sesión Usuario");
+				            	 	$("#menu-item-445 a").html("Cerrar Sesión");
 				            	 }else {
 				            	 	alert("Por favor verifica los datos de ingreso");
 				            	 	$("#menu-item-445").hide();
@@ -92,6 +92,7 @@ session_start();
 				        })				            
 				            .done(function(data) {				            	 
 				            	 	$("#menu-item-445").hide();
+				            	 	$(".usuario").hide();
 				            	 	$("#abrirlogueo").click();
 				            });
 				});
@@ -134,9 +135,20 @@ session_start();
   </div>
 </div>
 
-<?php 
-if (isset($_SESSION['usuario'])){
 
+ 
+
+<?php
+if (isset($_SESSION['usuario'])){
+ $a= $_SESSION['usuario']; ?>
+<script type="text/javascript">
+ 	$(document).ready(function() {
+var ab = "<?php echo 'Bienvenido '. $a; ?>";
+$(".usuario").html(ab);
+});
+</script>
+
+<?php
 }else { ?>
  <script type="text/javascript">
 $("#abrirlogueo").click();
