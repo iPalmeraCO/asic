@@ -68,6 +68,6 @@ function authenticate($group, $user, $password) {
 		$return = false;	
 	}
 	
-	return $msg;
+	return $return;
 }
 ?>
