@@ -25,7 +25,7 @@ session_start();
 		}
 		</style>-->
 		<script type="text/javascript">
-			$(document).ready(function() {
+			/*$(document).ready(function() {
 
 				    
 				    $('form').submit(function(event) {
@@ -98,16 +98,16 @@ session_start();
 				            });
 				});
 
-				});
+				});*/
 		</script>
 	</head>
 <body>
 
 <!-- Trigger the modal with a button -->
 
-<button data-target="#logueo" data-toggle="modal" data-backdrop="static" data-keyboard="false" id="abrirlogueo"></button>`
+<!--<button data-target="#logueo" data-toggle="modal" data-backdrop="static" data-keyboard="false" id="abrirlogueo"></button>`-->
 <!-- Modal -->
-<div id="logueo" class="modal fade" role="dialog">
+<!--<div id="logueo" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     
@@ -134,13 +134,13 @@ session_start();
     </div>
 
   </div>
-</div>
+</div>-->
 
 
  
 
 <?php
-if (isset($_SESSION['usuario'])){
+/*if (isset($_SESSION['usuario'])){
  $a= $_SESSION['usuario']; ?>
 <script type="text/javascript">
  	$(document).ready(function() {
@@ -158,4 +158,4 @@ $(".usuario").html(ab);
 $("#abrirlogueo").click();
 </script>
 
-<?php }   ?>
+<?php }  */  ?>
