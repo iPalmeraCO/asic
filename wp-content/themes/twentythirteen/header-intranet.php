@@ -9,6 +9,9 @@ session_start();
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */
+
+$src= get_template_directory_uri();
+
 ?>
 <html>
 	<head>
@@ -23,8 +26,24 @@ session_start();
 		#menu-item-445 {
 			display: none;
 		}
+		.logocsc:hover {
+			background-color: transparent !important;
+		}
 		</style>
 		<script type="text/javascript">
+
+		 $(document).ready(function() {
+
+					$('#menu-item-444').click(function(event){
+  					   event.preventDefault();  					   
+  					   var id = $(this).prop('id')
+  					   //var href = $("#"+id + " a ").attr('href');
+  					   var href= "https://app.asicamericas.com:9000/ux/myitapp/";  					   
+  					   $('<a class="logocsc" style="position: absolute;left: 127px;" target="_blank" href="'+href+'"><img src="<?php echo $src; ?>/images/logocsc.png" style="width:120px"/></a>').insertAfter("#"+id);
+  					  alert(href);
+				});
+
+				});
 			/*$(document).ready(function() {
 
 				    
