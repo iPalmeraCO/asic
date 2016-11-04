@@ -34,7 +34,7 @@ $src= get_template_directory_uri();
 
 		 $(document).ready(function() {
 
-					$('#menu-item-444').click(function(event){
+					$('#menu-item-448').click(function(event){
   					   event.preventDefault();  					   
   					   var id = $(this).prop('id')
   					   //var href = $("#"+id + " a ").attr('href');
