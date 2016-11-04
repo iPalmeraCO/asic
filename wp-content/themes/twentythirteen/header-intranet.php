@@ -40,7 +40,7 @@ $src= get_template_directory_uri();
   					   //var href = $("#"+id + " a ").attr('href');
   					   var href= "https://app.asicamericas.com:9000/ux/myitapp/";  					   
   					   $('<a class="logocsc" style="position: absolute;left: 127px;" target="_blank" href="'+href+'"><img src="<?php echo $src; ?>/images/logocsc.png" style="width:120px"/></a>').insertAfter("#"+id);
-  					  alert(href);
+  					  
 				});
 
 				});
