@@ -630,3 +630,32 @@ function reverse_strrchr($haystack, $needle, $trail) {
     return strrpos($haystack, $needle) ? substr($haystack, 0, strrpos($haystack, $needle) + $trail) : false;
 }
 
+
+/**
+ * Redirect 'category/news-articles' category to 'News page' ( at http://www.mysite.com/news' )
+ *
+ */
+add_filter('term_link', 'term_link_filter', 10, 3);
+function term_link_filter( $url, $term, $taxonomy ) {
+
+    if ( is_category( 'unidadesdeapoyo' ) ) {
+
+        $url = site_url( )."/unidades-de-apoyo";
+
+        wp_safe_redirect( $url, 301 );
+
+        exit;
+
+    } else  if ( is_category( 'productos' ) ) {
+
+        $url = site_url( )."/productos";
+
+        wp_safe_redirect( $url, 301 );
+
+        exit;
+
+    } 
+
+    return $url;
+
+}
