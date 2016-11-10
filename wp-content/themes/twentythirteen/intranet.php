@@ -17,7 +17,7 @@ $css = "background-image: url('".$rutimg."');";
 ?>
 
 		<div class="flota">
-            <a class="flotante" href="../chat"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/images/chat.png" border="0"></a>
+            <a class="flotante" target="_blank" href="http://chat.asicamericas.com:8080/webchat/userinfo.jsp?chatID=QMkuU4hwQQ&workgroup=asic@workgroup.asboglabvchat.asic.loc#"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/images/chat.png" border="0"></a>
             </div>
 
 		<div class="container">
@@ -49,7 +49,7 @@ $css = "background-image: url('".$rutimg."');";
 					</nav><!-- #site-navigation -->
 					
 					     <div id="chatmobile" class="col-xs-12">
-				            <a href='../chat'><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/images/chatmobile.png"></a>
+				            <a target="_blank" href='http://chat.asicamericas.com:8080/webchat/userinfo.jsp?chatID=QMkuU4hwQQ&workgroup=asic@workgroup.asboglabvchat.asic.loc#'><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/images/chatmobile.png"></a>
 				        </div>	
 				</div>
 			</div>

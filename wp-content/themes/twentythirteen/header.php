@@ -47,7 +47,7 @@
     <div class="container">
 		<header id="masthead" role="banner">		
 		<div class="flota">
-            <a class='flotante' href='<?php echo site_url(); ?>/chat'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chat.png" border="0" /></a>
+            <a class='flotante' target="_blank" href='http://chat.asicamericas.com:8080/webchat/userinfo.jsp?chatID=QMkuU4hwQQ&workgroup=asic@workgroup.asboglabvchat.asic.loc#'><img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/chat.png" border="0" /></a>
             </div>
         
  

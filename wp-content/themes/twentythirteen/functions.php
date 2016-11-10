@@ -629,3 +629,4 @@ function print_excerpt($length) { // length es la cantidad máxima de caracteres
 function reverse_strrchr($haystack, $needle, $trail) {
     return strrpos($haystack, $needle) ? substr($haystack, 0, strrpos($haystack, $needle) + $trail) : false;
 }
+
