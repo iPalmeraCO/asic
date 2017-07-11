@@ -68,11 +68,12 @@ class MPCEShortcode {
     public static $styles = array(
         'mp_style_classes' => '',
         'margin' => '',
-	'mp_custom_style' => ''
+		'mp_custom_style' => ''
     );	
     private static $curPostSaveInVer;
     private static $isNeedFix = false;
     private static $isCountdownScriptLocalizationEnqued = false;
+	private static $isContentEditor = null;
 
 	public static function isNeedStyleClassesFix(){
 		return self::$isNeedFix;
@@ -298,7 +299,7 @@ class MPCEShortcode {
 	 * @param string $classes Value of 'mp_custom_style' attribute of shortcode
 	 * @param string $shortcodeName Name of shortcode tag
 	 * @param bool $isAddSpace Whether add leading space
-	 * @return type
+	 * @return string
 	 */
 	public static function handleCustomStyles($classes, $shortcodeName, $isAddSpace = true){
 		$mpceCustomStyleManager = MPCECustomStyleManager::getInstance();
@@ -385,6 +386,7 @@ class MPCEShortcode {
             'bg_video_youtube_repeat' => 'false',
             'bg_video_youtube_mute' => 'false',
             'parallax_image' => null,			
+            'parallax_bg_size' => 'normal',
 			'id' => '',
 			'stretch' => '',
 			'width_content' => '',
@@ -401,34 +403,45 @@ class MPCEShortcode {
 
 		$rowAttrs = array();
 		$rowClassesArr = array('mp-row-fluid motopress-row');
-        $styleArr = array();		
+        $styleArr = array();
 
-		if ($stretch === 'full') {
-			wp_enqueue_script('mp-row-fullwidth');
-		}		
+	    if ($stretch === 'full') {
+			// Removed in v2.1.0
+//			wp_enqueue_script('mp-row-fullwidth');
+		    self::enqFrontScript();
+		}
 		                
         $videoHTML = '';
         switch ($bg_media_type) {
             case 'video' :
-				wp_enqueue_script('mp-video-background');
+				// Removed in v2.1.0
+//				wp_enqueue_script('mp-video-background');
+				self::enqFrontScript();
                 $videoHTML = self::generateHTML5BackgroundVideoHTML($bg_video_webm, $bg_video_mp4, $bg_video_ogg, $bg_video_cover, $bg_video_mute, $bg_video_repeat);
                 $rowClassesArr[] = 'mp-row-video';
                 break;
             case 'youtube' :
-				wp_enqueue_script('mp-video-background');
+				// Removed in v2.1.0
+//				wp_enqueue_script('mp-video-background');
 				wp_enqueue_script('mp-youtube-api');
+				self::enqFrontScript();
                 $videoHTML = self::generateYoutubeBackgroundVideoHtml($bg_video_youtube, $bg_video_youtube_cover, $bg_video_youtube_repeat, $bg_video_youtube_mute);
                 $rowClassesArr[] = 'mp-row-video';
                 break;
             case 'parallax' :
 				wp_enqueue_script('stellar');
-				wp_enqueue_script('mp-row-parallax');
+				// Removed in v2.1.0
+//				wp_enqueue_script('mp-row-parallax');
+				self::enqFrontScript();
                 $parallax_speed = 0.5;
 				$rowAttrs['data-stellar-background-ratio'] = $parallax_speed;                
                 if (!empty($parallax_image)) {
                     $imgSrc = wp_get_attachment_image_src( $parallax_image, 'full' );
 //                    $style = ' style=\'background-image:url("' . $imgSrc[0] . '"); \'';
                     $styleArr['background-image'] = 'url("' . esc_url($imgSrc[0]) . '")';
+	                if ($parallax_bg_size !== 'normal') {
+		                $styleArr['background-size'] = $parallax_bg_size;
+	                }
                 }
                 $rowClassesArr[] = 'motopress-row-parallax';
 				break;
@@ -448,9 +461,13 @@ class MPCEShortcode {
 				break;
 			case 'full':
 				if (isset($width_content)){
-					if ($width_content === '') {
+					if ($width_content === '') { // Auto
 						$rowClassesArr[] = 'mp-row-fullwidth';
-					} else { // full width content
+
+					} elseif ($width_content === 'fixed') { // Fixed
+						$rowClassesArr[] = 'mp-row-fixed-width-content';
+
+					} else { // Full
 						$rowClassesArr[] = 'mp-row-fullwidth-content';
 					}
 				}
@@ -670,7 +687,9 @@ class MPCEShortcode {
                     $linkAtts = ' data-action="motopressLightbox"';
                     if (!self::isContentEditor()) {
                         wp_enqueue_script('mpce-magnific-popup');
-                        wp_enqueue_script('mp-lightbox');
+	                    // Removed in v2.1.0
+//                        wp_enqueue_script('mp-lightbox');
+	                    self::enqFrontScript();
                     }
 				} else {
 					$linkAtts = ' rel="' . htmlentities($rel) . '"';
@@ -1200,7 +1219,9 @@ class MPCEShortcode {
 									case 'lightbox':
 										if (!self::isContentEditor()) {
 											wp_enqueue_script('mpce-magnific-popup');
-											wp_enqueue_script('mp-lightbox');
+											// Removed in v2.1.0
+//											wp_enqueue_script('mp-lightbox');
+											self::enqFrontScript();
 										}
 										$galleryItemAttrs .= ' data-action="motopressGalleryLightbox"';
 										$imgSrcFull = wp_get_attachment_image_src( $id, 'full' );
@@ -1243,7 +1264,9 @@ class MPCEShortcode {
         $galleryHtml = '<div class="motopress-grid-gallery-obj' . self::handleCustomStyles($mp_custom_style, $shortcodeName) . self::getBasicClasses(self::PREFIX . 'grid_gallery', true) . $mp_style_classes . self::getMarginClasses($margin) . $needRecalcClass . $oneColumnClass . '" id="' . $uniqid . '">';
         if (empty($error)) {
             if (!empty($galleryItems)) {
-                wp_enqueue_script('mp-grid-gallery');
+	            // Removed in v2.1.0
+//                wp_enqueue_script('mp-grid-gallery');
+	            self::enqFrontScript();
                 $galleryHtml .= '<div class="mp-row-fluid">';
                 $i = 0;
                 $spanClass = 12 / $columns;
@@ -1268,9 +1291,11 @@ class MPCEShortcode {
         $galleryHtml .= '</div>';
         return $galleryHtml;
     }
-    const DEFAULT_VIDEO = 'www.youtube.com/watch?v=t0jFJmTDqno';
+	
+    const DEFAULT_VIDEO = 'www.youtube.com/watch?v=A1QKC1GBNLU';
     const YOUTUBE = 'youtube';
     const VIMEO = 'vimeo';
+
     public function motopressVideo($atts, $content = null, $shortcodeName) {
         extract(shortcode_atts(self::addStyleAtts(array(
             'src' => ''
@@ -1411,15 +1436,25 @@ class MPCEShortcode {
         }
         return $videoSrc;
     }
+
     public static function isContentEditor() {
-        if (
-            (isset($_GET['motopress-ce']) && $_GET['motopress-ce'] === '1') ||
-            (isset($_POST['action']) && (in_array($_POST['action'], array('motopress_ce_render_shortcode', 'motopress_ce_render_video_bg', 'motopress_ce_render_youtube_bg') )))
-        ) {
-            return true;
-        }
-        return false;
+	    if (is_null(self::$isContentEditor)) {
+		    if (
+			    (isset($_GET['motopress-ce']) && $_GET['motopress-ce'] === '1') ||
+			    (
+				    isset($_POST['action']) &&
+				    in_array($_POST['action'], array('motopress_ce_render_shortcode', 'motopress_ce_render_video_bg', 'motopress_ce_render_youtube_bg'))
+			    )
+		    ) {
+			    self::$isContentEditor = true;
+		    } else {
+			    self::$isContentEditor = false;
+		    }
+	    }
+
+	    return self::$isContentEditor;
     }
+
     public function motopressCode($atts, $content = null, $shortcodeName) {
         extract(shortcode_atts(self::addStyleAtts(), $atts));
         if (!empty($classes)) $classes = ' ' . $classes;
@@ -1655,8 +1690,7 @@ class MPCEShortcode {
             'icon_position' =>'left'
         )), $atts);
 		extract($combinedAtts);
-		
-        
+
         if (!empty($classes)) $classes = ' ' . $classes;
         if (self::$isNeedFix && empty($mp_style_classes)) {
             if (!empty($color)) {
@@ -1733,7 +1767,9 @@ class MPCEShortcode {
 
 		if (!self::isContentEditor()) {
 			wp_enqueue_script('mpce-waypoints');
-			wp_enqueue_script('mp-waypoint-animations');
+			// Removed in v2.1.0
+//			wp_enqueue_script('mp-waypoint-animations');
+			self::enqFrontScript();
 		}
 		
 		$iconHolderStyle = '';
@@ -1842,7 +1878,6 @@ class MPCEShortcode {
                 . '}'
                 . '</style>';
         /*end styles*/
-        
         
         if (!self::isContentEditor()) {
             wp_enqueue_script('mpce-countdown-plugin');
@@ -2227,6 +2262,9 @@ class MPCEShortcode {
             'address' => 'Sidney, New South Wales, Australia',
             'zoom' => '13'
         )), $attrs ));
+
+	    self::enqFrontScript();
+
         if ( $address == '' ) { return $result; }
         $address = str_replace(" ", "+", $address);
         $formattedAddresses = get_transient('motopress-gmap-addresses');
@@ -2368,7 +2406,9 @@ class MPCEShortcode {
             if (!empty($custom_class)) $mp_style_classes .= ' ' . $custom_class;
         }
         if (!empty($mp_style_classes)) $mp_style_classes = ' ' . $mp_style_classes;
-        wp_enqueue_script('mp-social-share');
+	    // Removed in v2.1.0
+//        wp_enqueue_script('mp-social-share');
+	    self::enqFrontScript();
 //        $result = '<div class="motopress-share-buttons ' . $align . ' ' . $size . ' ' . $style . $classes . self::getMarginClasses($margin) . $custom_class . self::getBasicClasses(self::PREFIX . 'social_buttons', true) . $mp_style_classes . '">';
         $result = '<div class="motopress-share-buttons ' . $align . self::handleCustomStyles($mp_custom_style, $shortcodeName) . $classes . self::getMarginClasses($margin) . self::getBasicClasses(self::PREFIX . 'social_buttons', true) . $mp_style_classes . '">';
         $result.= '<span class="motopress-button-facebook"><a href="#" title="Facebook" target="_blank"></a></span>';
@@ -2435,8 +2475,12 @@ class MPCEShortcode {
             'transparency' => 'false',
             'donut' => ''
         )), $attrs) );
-        wp_enqueue_script('google-charts-api');
-        wp_enqueue_script('mp-google-charts');
+
+	    wp_enqueue_script('google-charts-api');
+	    // Removed in v2.1.0
+//        wp_enqueue_script('mp-google-charts');
+	    self::enqFrontScript();
+
         $id = uniqid('motopress-google-chart-');
         if (!empty($classes)) $classes = ' ' . $classes;
         if (self::$isNeedFix && empty($mp_style_classes)) {
@@ -3181,7 +3225,9 @@ class MPCEShortcode {
 		$style = '';
 		if (!self::isContentEditor()) {
 			wp_enqueue_script('mpce-magnific-popup');
-			wp_enqueue_script('mp-lightbox');
+			// Removed in v2.1.0
+//			wp_enqueue_script('mp-lightbox');
+			self::enqFrontScript();
 		}
 
 		$buttonIconHTML = '';
@@ -3255,10 +3301,12 @@ class MPCEShortcode {
 			if (!self::isContentEditor()) {
 				wp_enqueue_script('mpce-waypoints');
 				wp_enqueue_script('mpce-magnific-popup');
-				wp_enqueue_script('mp-lightbox');
+				// Removed in v2.1.0
+//				wp_enqueue_script('mp-lightbox');
 				if ($isShowOnce && !$isShowedOnce) {
 					wp_enqueue_script('mp-js-cookie');
 				}
+				self::enqFrontScript();
 			}
 
 			$triggerAttrs .= ' data-delay="' . intval($delay) . '"';
@@ -3502,7 +3550,8 @@ class MPCEShortcode {
 		if ( !$this->isContentEditor() && ( $animation !== 'none' || $button_animation !== 'none' || $icon_animation !== 'none' ) ) {
 			$classes['cta-block'][] = 'motopress-need-animate';
 			wp_enqueue_script('mpce-waypoints');
-			wp_enqueue_script('mp-waypoint-animations');
+
+//			wp_enqueue_script('mp-waypoint-animations');
 		}
 
         // "style" field
@@ -3727,5 +3776,17 @@ class MPCEShortcode {
         }
         return $templates;
     }
+
+	/**
+	 * Enqueue front script
+	 * @note Must be called after scripts which depend on
+	 */
+	public static function enqFrontScript() {
+		if (!self::isContentEditor()) {
+			wp_dequeue_script('mp-frontend');
+			wp_enqueue_script('mp-frontend');
+		}
+	}
+
 }
 add_action('init', array('MPCEShortcode', 'downloadAttachment'));

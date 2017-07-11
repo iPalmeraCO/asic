@@ -57,6 +57,10 @@
                     ?> 
                 </ul>
                 </div>
+                <div class="col-md-3 col-sm-4  col-xs-12">
+                  <a id="text5" class="polit" href="/wp-content/uploads/2017/05/Politica-tratamiento-de-datos.pdf" target="_Blanck">Política de Manejo de Datos</a>
+                </div>
+
             </div>
     </div>
 

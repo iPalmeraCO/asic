@@ -1,6 +1,3 @@
-
-
-
 /**
  * 2.0 Repeatable Patterns
  * ----------------------------------------------------------------------------
@@ -2736,4 +2733,14 @@ footer.entry-meta {
 	.comment-reply-login {
 		color: #333;
 	}
+}
+
+.category-uncategorized .entry-content div {
+margin-top: 10px;
+    
+
+}
+.polit{
+padding-top: 152px;
+    display: inline-block;
 }

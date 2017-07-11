@@ -1,0 +1,39 @@
+.completo{
+    color: #FFFFFF;
+    cursor: pointer;
+    background-color: #85aa21;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li.completo > a{
+    color: #FFFFFF;
+    cursor: pointer;
+    background-color: #85aa21;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li.completo > a:hover{
+    color: #FFFFFF;
+  cursor: pointer;
+  /*background-color: #85aa21;*/
+  background-color: #96B73C;
+  border: 1px solid #dddddd;
+  border-bottom-color: transparent;
+}
+.nav-tabs > li.completo > a:focus {
+    color: #FFFFFF;
+    cursor: pointer;
+    background-color: #85aa21;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #FFFFFF;
+    cursor: default;
+    background-color: #e2001b;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li > a{
+    border:none !important;
+}

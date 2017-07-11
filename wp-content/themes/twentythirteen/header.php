@@ -36,6 +36,26 @@
 	 	$("#formbuscar").toggle();
 	 }
 	</script>
+<script type="text/javascript">
+function calcHeight()
+   {
+    //find the height of the internal page
+    var the_height=
+    document.getElementById('the_iframe').contentWindow.
+    document.body.scrollHeight;
+
+    //change the height of the iframe
+    document.getElementById('the_iframe').height=
+    the_height;
+   }
+</script>
+<style>
+.motopress-text-obj span {
+  margin-top : 10px;
+  display: inline-block;
+  line-height: 1.4em !important;
+}
+</style>
 </head>
 
 <body <?php body_class(); ?>>

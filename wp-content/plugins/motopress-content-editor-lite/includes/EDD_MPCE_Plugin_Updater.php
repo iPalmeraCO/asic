@@ -120,8 +120,8 @@ class EDD_MPCE_Plugin_Updater {
 		if( $data['slug'] != $this->slug )
 			return;
 
-		if( empty( $data['license'] ) )
-			return;
+		/*if( empty( $data['license'] ) )
+			return;*/
 
 		$api_params = array(
 			'edd_action' 	=> 'get_version',

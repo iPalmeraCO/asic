@@ -10,6 +10,7 @@ require_once dirname(__FILE__) . '/Template.php';
  *
  */
 class MPCELibrary {
+	/** @var MPCEGroup[] */
     private $library = array();
     public $globalPredefinedClasses = array();
     public $tinyMCEStyleFormats = array();
@@ -406,8 +407,9 @@ class MPCELibrary {
 				'label' => 'Content Width',
 				'default' => '',
 				'list' => array(
-					'' => $motopressCELang->CEFixedWidth,
-					'full' => $motopressCELang->CEFullWidth
+					'' => $motopressCELang->CEAuto,
+					'full' => $motopressCELang->CEFullWidth,
+					'fixed' => $motopressCELang->CEFixedWidth
 				),
 				'dependency' => array(
 					'parameter' => 'stretch',
@@ -524,6 +526,20 @@ class MPCELibrary {
                 'type' => 'image',
                 'label' => $motopressCELang->CERowObjParallaxImageLabel,
                 'description' => $motopressCELang->CERowObjParallaxImageDesc,
+                'dependency' => array(
+                    'parameter' => 'bg_media_type',
+                    'value' => 'parallax'
+                )
+            ),
+            'parallax_bg_size' => array(
+                'type' => 'select',
+                'label' => $motopressCELang->CERowObjParallaxBGSizeLabel,
+	            'default' => 'normal',
+                'list' => array(
+	                'normal' => $motopressCELang->CENormal,
+	                'cover' => $motopressCELang->CECover,
+	                'contain' => $motopressCELang->CEContain,
+                ),
                 'dependency' => array(
                     'parameter' => 'bg_media_type',
                     'value' => 'parallax'
@@ -3966,6 +3982,7 @@ class MPCELibrary {
         if (is_plugin_active('motopress-slider/motopress-slider.php') || is_plugin_active('motopress-slider-lite/motopress-slider.php')) {
             global $mpsl_settings;
             if (version_compare($mpsl_settings['plugin_version'], '1.1.2', '>=')) {
+	            /** @var MPSlider $mpSlider */
                 global $mpSlider;
                 $mpSliderObj = new MPCEObject('mpsl', apply_filters('mpsl_product_name', $motopressCELang->CESliderObjName), 'layer-slider.png', array(
                     'alias' => array(

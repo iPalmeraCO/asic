@@ -34,7 +34,10 @@ class MPCECustomStyleManager {
 	}
 
 	private function addActions(){
-		add_action('wp_footer', array($this, 'printStyles'), 21);				
+//		add_action('wp_footer', array($this, 'printStyles'), 21);
+		/** @todo Test */
+		// Load before scripts
+		add_action('wp_footer', array($this, 'printStyles'), 19);
 	}
 
 	public function enqueuePrivateStyle($postId){
@@ -175,7 +178,36 @@ class MPCECustomStyleManager {
 		return get_option(self::WP_OPTION_PRESETS, array());
 	}
 
-	public static function getPresetsLastId(){
+	/**
+	 * Fix for non-existent last preset id
+	 * @since 2.1.0
+	 */
+	private static function fixPresetsLastId() {
+		if (get_option(self::WP_OPTION_PRESETS_LAST_ID) === false) {
+			$lastId = 0;
+			$presets = self::getAllPresets();
+
+			if (count($presets)) {
+				$maxId = max( // Find max id
+					array_map( // Extract ids
+						array('MPCECustomStyleManager', 'removerPrefixFromName'),
+						array_keys($presets) // Get class names
+					)
+				);
+				$lastId = $maxId < 0 ? 0 : $maxId;
+			}
+
+			update_option(self::WP_OPTION_PRESETS_LAST_ID, $lastId);
+		}
+	}
+
+	private static function removerPrefixFromName($item) {
+		return (int) str_replace(MPCECustomStyleManager::PRESET_PREFIX, '', $item);
+	}
+
+	public static function getPresetsLastId() {
+		self::fixPresetsLastId();
+
 		return (int) get_option(self::WP_OPTION_PRESETS_LAST_ID, 0);
 	}
 	
@@ -209,6 +241,7 @@ class MPCECustomStyleManager {
 	public static function getLocalizeJSData(){
 		return array(
 			'const' => array(
+				'wpPostMetaPresetsLastId' => self::WP_OPTION_PRESETS_LAST_ID,
 				'wpPostMetaPresetStyles' => self::WP_OPTION_PRESETS,
 				'wpPostMetaPrivateStyle' => self::WP_POST_META_STYLES,
 				'prefixPrivateClass' => self::PRIVATE_STYLE_PREFIX,
@@ -226,10 +259,22 @@ class MPCECustomStyleManager {
 		return strnatcasecmp($a['label'], $b['label']);
 	}
 
+	public static function savePresetsLastId($lastId, $isPreview = false, $postId = null) {
+		if (!is_int($lastId)) $lastId = (int) $lastId;
+
+		if ($isPreview) {
+			set_transient(self::getTransientName(self::WP_OPTION_PRESETS_LAST_ID, $postId), $lastId, DAY_IN_SECONDS);
+		} else {
+			update_option(self::WP_OPTION_PRESETS_LAST_ID, $lastId);
+		}
+
+		return $lastId;
+	}
+
 	/**
 	 * @param $presets
 	 * @param bool|false $isPreview
-	 * @param bool|false $postId - Must be set if $isPreview is true
+	 * @param bool|null $postId - Must be set if $isPreview is true
 	 * @return array
 	 */
 	public static function savePresets($presets, $isPreview = false, $postId = null) {
@@ -290,28 +335,24 @@ class MPCECustomStyleManager {
 	}
 
 	/* MetaBox */
-	public static function stylesMetaBoxAdd($postType) {
-		if (!user_can_richedit()) return false;
+	public static function stylesMetaBoxAdd($postType, $post) {
+		global $motopressCESettings, $motopressCELang;
 
-		global $motopressCESettings;
-	    require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/Access.php';
+		if (!user_can_richedit()) return;
+		if (!MPCEContentManager::isEditorAvailableForPost($post)) return;
+		if (!MPCEContentManager::isPostEnabledForEditor($post->ID)) return;
 
-		$ceAccess = new MPCEAccess();
-	    $postTypes = get_option('motopress-ce-options', array('post', 'page'));
-
-		if (in_array($postType, $postTypes) && post_type_supports($postType, 'editor') && $ceAccess->hasAccess()) {
-			global $motopressCELang;
-			add_meta_box(
-				'motopress-ce-styles',
-				strtr($motopressCELang->CEStylesMetaBoxTitle, array('%BrandName%' => $motopressCESettings['brand_name'])),
-				array('MPCECustomStyleManager', 'stylesMetaBoxPrint'),
-				null, 'normal', 'low'
-			);
-		}
+		add_meta_box(
+			'motopress-ce-styles',
+			strtr($motopressCELang->CEStylesMetaBoxTitle, array('%BrandName%' => $motopressCESettings['brand_name'])),
+			array('MPCECustomStyleManager', 'stylesMetaBoxPrint'),
+			null, 'normal', 'low'
+		);
 	}
 
 	public static function stylesMetaBoxPrint($post) {
 		wp_nonce_field(self::WP_META_BOX_STYLES_NONCE, self::WP_META_BOX_STYLES_NONCE);
+		echo '<input type="hidden" name="' . self::WP_OPTION_PRESETS_LAST_ID . '" />';
 		echo '<textarea name="' . self::WP_OPTION_PRESETS . '"></textarea>';
 		echo '<textarea name="' . self::WP_POST_META_STYLES . '">' . json_encode(self::getAllPrivates($post->ID), JSON_FORCE_OBJECT) . '</textarea>';
 	}
@@ -324,8 +365,33 @@ class MPCECustomStyleManager {
 
 		$isPreview = isset($_POST['wp-preview']) && $_POST['wp-preview'] === 'dopreview';
 		if ($isPreview) $postId = get_the_ID();
+
+		self::presetsLastIdMetaBoxSave($postId, $isPreview);
 		self::presetsMetaBoxSave($postId, $isPreview);
 		self::privatesMetaBoxSave($postId, $isPreview);
+	}
+
+	private static function presetsLastIdMetaBoxSave($postId, $isPreview = false) {
+		if ($isPreview) {
+			$saved = false;
+			if (isset($_POST[self::WP_OPTION_PRESETS_LAST_ID])) {
+				// not empty and valid
+				if ($lastId = $_POST[self::WP_OPTION_PRESETS_LAST_ID]) {
+					self::savePresetsLastId($lastId, $isPreview, $postId);
+					$saved = true;
+				}
+			}
+			if (!$saved) {
+				$lastId = get_option(self::WP_OPTION_PRESETS_LAST_ID, '');
+				self::savePresetsLastId($lastId, $isPreview, $postId);
+			}
+
+		} elseif (isset($_POST[self::WP_OPTION_PRESETS_LAST_ID]) && !wp_is_post_autosave($postId) && !wp_is_post_revision($postId)) {
+			// not empty and valid
+			if ($lastId = $_POST[self::WP_OPTION_PRESETS_LAST_ID]) {
+				self::savePresetsLastId($lastId);
+			}
+		}
 	}
 
 	private static function presetsMetaBoxSave($postId, $isPreview = false) {
@@ -367,5 +433,5 @@ class MPCECustomStyleManager {
 }
 
 add_filter('options_import_whitelist', array('MPCECustomStyleManager', 'optionsImportWhitelistFilter'));
-add_action('add_meta_boxes', array('MPCECustomStyleManager', 'stylesMetaBoxAdd'));
+add_action('add_meta_boxes', array('MPCECustomStyleManager', 'stylesMetaBoxAdd'), 10, 2);
 add_action('save_post', array('MPCECustomStyleManager', 'stylesMetaBoxSave'));

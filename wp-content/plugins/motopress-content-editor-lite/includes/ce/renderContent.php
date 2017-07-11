@@ -76,6 +76,13 @@ function motopressCEParseObjectsRecursive($matches, $parseContent = true) {
 				}
 				$atts['mp_style_classes'] = implode(' ', $mpStyleClassesArr);
 			}
+
+			// Row parallax_bg_size fix (in case default='cover')
+			/*if (isset($atts['bg_media_type']) && $atts['bg_media_type'] === 'parallax') {
+				if (!isset($atts['parallax_bg_size'])) {
+					$atts['parallax_bg_size'] = 'normal';
+				}
+			}*/
 		}
 		
         $obj = $motopressCELibrary->getObject($shortcodeName);
@@ -112,8 +119,9 @@ function motopressCEParseObjectsRecursive($matches, $parseContent = true) {
 
         //set styles
         $styles = array();
-        if (!empty(MPCEShortcode::$styles)) {
-            foreach(MPCEShortcode::$styles as $name => $value) {
+        $_styles = MPCEShortcodeAtts::getStyle();
+        if (!empty($_styles)) {
+            foreach($_styles as $name => $value) {
                 if (array_key_exists($name, $atts)) {
                     $value = preg_replace('#^<\/p>|^<br \/>|<p>$#', '', $atts[$name]);
                     $styles[$name]['value'] = htmlentities($value, ENT_QUOTES, 'UTF-8');
@@ -224,7 +232,7 @@ function motopressCEParseObjectsRecursive($matches, $parseContent = true) {
         if (in_array($shortcodeName, $gridShortcodes) || in_array($shortcodeName, $groupObjects)) {
             return '<div '.MPCEShortcode::$attributes['closeType'].'="' . $closeType . '" '.MPCEShortcode::$attributes['shortcode'].'="' . $shortcodeName .'" '.MPCEShortcode::$attributes['group'].'="' . $group .'"' . $parameters_str . $styles_str . ' '.MPCEShortcode::$attributes['content'].'="' . htmlentities($dataContent, ENT_QUOTES, 'UTF-8') . '" ' . $unwrap . '>[' . $shortcodeName . $attsStr . ']' . preg_replace_callback($regex, 'motopressCEParseObjectsRecursive', $content) . $endstr . '</div>';
         } else {
-            $content = MPCEShortcode::unautopMotopressShortcodes($content);
+            $content = MPCEShortcode::unautopBuilderShortcodes($content);
             return '<div '.MPCEShortcode::$attributes['closeType'].'="' . $closeType . '" '.MPCEShortcode::$attributes['shortcode'].'="' . $shortcodeName .'" '.MPCEShortcode::$attributes['group'].'="' . $group .'"' . $parameters_str . $styles_str . ' '.MPCEShortcode::$attributes['content'].'="' . htmlentities($dataContent, ENT_QUOTES, 'UTF-8') . '" ' . $unwrap . '>[' . $shortcodeName . $attsStr . ']' . $content . $endstr . '</div>';
         }
     }

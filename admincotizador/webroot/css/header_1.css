@@ -1,0 +1,83 @@
+body
+{
+    margin: 0px;
+    width: 100%;
+    //background: url('../img/theronbg.png') 30px 0 repeat;
+    background-color: #F3F6F6;
+    /*font-family: 'Open Sans', sans-serif;*/
+     /*font-family: 'Montserrat','Myriad Pro', 'Trebuchet MS', Arial;*/
+         font-family: 'Montserrat','News Cycle', sans-serif, arial;
+
+}
+
+
+
+.ultable{
+    
+    list-style-type: disc;
+    color: #0071bf;
+    font-size: 12px;
+}
+.ultable-2{
+    
+    list-style-type: disc;
+    color: #76aa2a;
+    font-size: 12px;
+}
+.ultable-3{
+    
+    list-style-type: disc;
+    color: #f57900;
+    font-size: 12px;
+}
+.ultable-4{
+    
+    list-style-type: disc;
+    color: #50a3d9;
+    font-size: 12px;
+}
+.litable{
+    display: list-item;
+    
+}
+
+.current {
+
+    color: #18211E;
+
+}
+
+
+.texto-bottom{
+    vertical-align: bottom;
+}
+
+
+.titulocolor{
+    color: #50a3d9;
+
+}
+
+.titulocolor-5{
+    color: #0071bf;
+}
+
+.textocolor {
+    color: #7f7f7f;
+}
+
+.titulocolor-2 {
+    color: #76aa2a;
+}
+
+.titulocolor-3 {
+    color: #f57900;
+}
+
+.titulocolor-4 {
+    color: #50a3d9;
+}
+
+.celda{
+    height: auto;
+}

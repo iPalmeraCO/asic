@@ -26,10 +26,11 @@ $motopressCESettings['plugin_author'] = $pluginData['Author'];
 $motopressCESettings['license_type'] = "Lite";
 $motopressCESettings['edd_mpce_store_url'] = $pluginData['PluginURI'];
 $motopressCESettings['edd_mpce_item_name'] = $pluginData['Name'] . ' ' . $motopressCESettings['license_type'];
-$motopressCESettings['renew_url'] = $pluginData['PluginURI'] . 'buy/';
+$motopressCESettings['renew_url'] = $pluginData['PluginURI'];
 
 $motopressCESettings['translation_service_url'] = 'https://crowdin.com/project/motopress-content-editor';
 $motopressCESettings['wordpress_version'] = get_bloginfo('version');
+$motopressCESettings['canjs_version'] = '2.3.24';
 $motopressCESettings['license_tabs'] = array();
 
 $motopressCESettings['home_addons_url'] = 'http://www.getmotopress.com/addons/';
@@ -77,7 +78,7 @@ $motopressCESettings['google_font_classes_prefix'] = 'mpce-font-';
 $motopressCESettings['google_font_classes_dir'] = $motopressCESettings['plugin_upload_dir_path'] . 'google-font-classes' . DIRECTORY_SEPARATOR;
 $motopressCESettings['google_font_classes_dir_url'] = $motopressCESettings['plugin_upload_dir_url'] . "google-font-classes/";
 $motopressCESettings['spellcheck'] = get_option('motopress-ce-spellcheck-enable', '1');
-$motopressCESettings['save_excerpt'] = get_option('motopress-ce-save-excerpt', '1');
+$motopressCESettings['default_fixed_row_width'] = 1170;
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
 $wpIncludesUrl = str_replace($protocol.'://'.$_SERVER['HTTP_HOST'], '', includes_url());

@@ -1,5 +1,5 @@
-steal( 'jquery/class', function($) {
-    $.Class('MP.BootstrapSelect',
+(function ($) {
+    MP.BootstrapSelect = can.Construct(
     {
         setSelected: function(option) {
             option.prop('selected', true);
@@ -76,4 +76,4 @@ steal( 'jquery/class', function($) {
         }
     },
     {})
-});
+})(jQuery);

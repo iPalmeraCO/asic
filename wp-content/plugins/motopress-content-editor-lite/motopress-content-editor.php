@@ -3,7 +3,7 @@
 Plugin Name: MotoPress Content Editor Lite
 Plugin URI: http://www.getmotopress.com/plugins/content-editor/
 Description: Drag and drop frontend page builder for any theme.
-Version: 2.0.3
+Version: 2.2.0
 Author: MotoPress
 Author URI: http://www.getmotopress.com/
 License: GPLv2 or later
@@ -27,8 +27,13 @@ require_once $motopress_plugin_dir_path . 'includes/settings.php';
 require_once $motopress_plugin_dir_path . 'includes/compatibility.php';
 require_once $motopress_plugin_dir_path . 'includes/functions.php';
 require_once $motopress_plugin_dir_path . 'includes/MPCEUtils.php';
+require_once $motopress_plugin_dir_path . 'includes/ce/MPCECustomStyleManager.php';
+require_once $motopress_plugin_dir_path . 'includes/ce/shortcodes/post_grid/MPCEShortcodePostsGrid.php';
+require_once $motopress_plugin_dir_path . 'includes/ce/shortcode/ShortcodeCommon.php';
+require_once $motopress_plugin_dir_path . 'includes/ce/MPCEContentManager.php';
 
 add_action('wp_head', 'motopressCEWpHead', 7);
+//add_action('wp_enqueue_scripts', 'motopressCEWpHead');
 
 // Custom CSS [if exsists]
 add_action('wp_head', 'motopressCECustomCSS', 999);
@@ -41,123 +46,6 @@ function motopressCECustomCSS(){
     }
 }
 // Custom CSS END
-
-if (isset($_GET['motopress-ce']) && $_GET['motopress-ce'] == 1) {
-    add_filter('show_admin_bar', '__return_false');
-
-	add_filter('the_content', 'motopressCETheContent', 1);
-	add_filter('the_title', 'motopressCETheTitle', 1, 2);
-	add_filter('get_post_metadata', 'motopressCEReplacePageTemplate', 10, 3);
-
-	// Fix Cherry empty post_content
-//	global $mpceIsCherryContentEmpty;
-//	$mpceIsCherryContentEmpty = false;
-//	add_action('cherry_entry_before', 'motopressCECherryEntryBefore');
-//	add_action('cherry_entry_after', 'motopressCECherryEntryAfter');
-
-	// Fix empty post_content
-	// `suppress_filters` ?
-	add_filter('the_posts', 'motopressCEThePosts');
-//	add_filter('the_posts', 'motopressCEThePosts', 999, 1);
-}
-
-function motopressCEThePosts($posts) {
-	$editPostId = isset($_REQUEST['mpce-post-id']) ? $_REQUEST['mpce-post-id'] : false;
-	if ($editPostId) {
-		foreach ($posts as &$post) {
-			if ($post->ID == $editPostId) {
-				if (!$post->post_content) {
-					$post->post_content = 'mpce-empty-content';
-				}
-				break;
-			}
-		}
-	}
-	return $posts;
-}
-
-/*
-function motopressCECherryEntryBefore() {
-	global $post, $mpceIsCherryContentEmpty;
-	$mpceIsCherryContentEmpty = false;
-	if ($post && !$post->post_content) {
-		$mpceIsCherryContentEmpty = true;
-		$post->post_content = 'mpce-empty-cherry-content';
-	}
-}
-function motopressCECherryEntryAfter() {
-	global $post, $mpceIsCherryContentEmpty;
-	if ($post && $mpceIsCherryContentEmpty) {
-		$post->post_content = '';
-	}
-}
-*/
-
-/** @todo: Maybe use transient for mpce_editable_content */
-function motopressCERedirectPostLocation($location) {
-	if (isset($_POST['mpce_auto_draft_redirect'])) {
-		$location = $_POST['mpce_auto_draft_redirect'];
-		$editPostId = isset($_REQUEST['mpce-post-id']) ? $_REQUEST['mpce-post-id'] : false;
-		if ($editPostId) {
-			$title = isset($_POST['mpce_title']) ? $_POST['mpce_title'] : false;
-			$pageTemplate = isset($_POST['mpce_page_template']) ? $_POST['mpce_page_template'] : false;
-			$editableContent = isset($_POST['mpce_editable_content']) ? $_POST['mpce_editable_content'] : false;
-
-			if ($title !== false) update_post_meta($editPostId, '_mpce_title', $title);
-			if ($pageTemplate !== false) update_post_meta($editPostId, '_mpce_page_template', $pageTemplate);
-			if ($editableContent !== false) update_post_meta($editPostId, '_mpce_editable_content', $editableContent);
-		}
-	}
-	return $location;
-}
-add_filter('redirect_post_location', 'motopressCERedirectPostLocation');
-
-function motopressCEReplacePageTemplate($value, $postId, $metaKey) {
-	if ($metaKey === '_wp_page_template') {
-		$editPostId = isset($_REQUEST['mpce-post-id']) ? $_REQUEST['mpce-post-id'] : false;
-		if ($editPostId && $postId == $editPostId) {
-			$template = isset($_POST['mpce_page_template']) ? $_POST['mpce_page_template'] : get_post_meta($postId, '_mpce_page_template', true);
-			if ($template) $value = $template;
-		}
-	}
-	return $value;
-}
-
-function motopressCETheContent($content) {
-	global $motopressCESettings, $post;
-
-	$editPostId = isset($_REQUEST['mpce-post-id']) ? $_REQUEST['mpce-post-id'] : false;
-	if ($editPostId && $post->ID == $editPostId) {
-		require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/renderContent.php';
-
-		global $motopressCEWPAttachmentDetails;
-		$editableContent = isset($_POST['mpce_editable_content']) ? $_POST['mpce_editable_content'] : get_post_meta($post->ID, '_mpce_editable_content', true);
-
-		$content = motopressCERenderContent($editableContent);
-		$post->post_content = $content;
-
-		$attachmentDetailsJSON = function_exists('wp_json_encode') ? wp_json_encode($motopressCEWPAttachmentDetails) : json_encode($motopressCEWPAttachmentDetails);
-
-		$script =
-		'<p class="motopress-hide-script"><script type="text/javascript">
-			window.mpce_wp_attachment_details = ' . $attachmentDetailsJSON . ';
-		</script></p>';
-
-		$content = $script . $content;
-	}
-	return $content;
-}
-
-function motopressCETheTitle($title, $postId) {
-	$editPostId = isset($_REQUEST['mpce-post-id']) ? $_REQUEST['mpce-post-id'] : $postId;
-	if ($postId == $editPostId) {
-		$title = isset($_POST['mpce_title']) ? $_POST['mpce_title'] : get_post_meta($postId, '_mpce_title', true);
-		$title = stripslashes(trim($title));
-//		$title = trim(convert_chars(wptexturize($title)));
-		$title = '&zwnj;' . $title . '&zwnj;';
-	}
-	return  $title;
-}
 
 function motopressCEGetWPScriptVer($script) {
     global $wp_version;
@@ -193,16 +81,19 @@ function motopressCEGetWPScriptVer($script) {
 }
 
 function motopressCEWpHead() {
-//    global $post;
     global $motopressCESettings;
-	$scriptSuffix = $motopressCESettings['script_suffix'];
 
-    wp_register_style('mpce-bootstrap-grid', $motopressCESettings['plugin_dir_url'] . 'bootstrap/bootstrap-grid.min.css', array(), $motopressCESettings['plugin_version']);
+	$suffix = $motopressCESettings['script_suffix'];
+	$pUrl = $motopressCESettings['plugin_dir_url'];
+    $pVer = $motopressCESettings['plugin_version'];
+	$vendorInFooter = $frontInFooter = $editorInFooter = $noConflictInFooter = true;
 
-//    wp_register_style('mpce-bootstrap-responsive-utility', $motopressCESettings['plugin_dir_url'] . 'bootstrap-responsive-utility.min.css', array(), $motopressCESettings['plugin_version']);
+    wp_register_style('mpce-bootstrap-grid', $pUrl . 'bootstrap/bootstrap-grid.min.css', array(), $pVer);
+
+//    wp_register_style('mpce-bootstrap-responsive-utility', $pUrl . 'bootstrap-responsive-utility.min.css', array(), $pVer);
 //    wp_enqueue_style('mpce-bootstrap-responsive-utility');
 
-    wp_register_style('mpce-theme', $motopressCESettings['plugin_dir_url'] . 'includes/css/theme' . $scriptSuffix . '.css', array(), $motopressCESettings['plugin_version']);
+    wp_register_style('mpce-theme', $pUrl . 'includes/css/theme' . $suffix . '.css', array(), $pVer);
 
     /*
     if (
@@ -218,44 +109,54 @@ function motopressCEWpHead() {
         wp_enqueue_script('jquery');
     }
 
-    wp_register_style('mpce-flexslider', $motopressCESettings['plugin_dir_url'] . 'vendors/flexslider/flexslider.min.css', array(), $motopressCESettings['plugin_version']);
-    wp_register_script('mpce-flexslider', $motopressCESettings['plugin_dir_url'] . 'vendors/flexslider/jquery.flexslider-min.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_style('mpce-font-awesome', $motopressCESettings['plugin_dir_url'] . 'fonts/font-awesome/css/font-awesome.min.css', array(), '4.3.0');
-    /*wp_register_script('mpce-theme', $motopressCESettings['plugin_dir_url'] . 'includes/js/theme.js', array('jquery'), $motopressCESettings['plugin_version']);
+    wp_register_style('mpce-flexslider', $pUrl . 'vendors/flexslider/flexslider.min.css', array(), $pVer);
+    wp_register_script('mpce-flexslider', $pUrl . 'vendors/flexslider/jquery.flexslider-min.js', array('jquery'), $pVer, $vendorInFooter);
+    wp_register_style('mpce-font-awesome', $pUrl . 'fonts/font-awesome/css/font-awesome.min.css', array(), '4.3.0');
+
+	// Unused
+    /*wp_register_script('mpce-theme', $pUrl . 'includes/js/theme.js', array('jquery'), $pVer);
     wp_enqueue_script('mpce-theme');*/
 
-    wp_register_script('google-charts-api', 'https://www.google.com/jsapi');
-    wp_register_script('mp-google-charts', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-google-charts' . $scriptSuffix . '.js', array('jquery','google-charts-api'), $motopressCESettings['plugin_version']);
+    wp_register_script('google-charts-api', 'https://www.google.com/jsapi', array(), null, $vendorInFooter);
+//    wp_register_script('mp-google-charts', $pUrl . 'includes/js/mp-google-charts' . $suffix . '.js', array('jquery','google-charts-api'), $pVer); // old front
+//    wp_register_script('mp-social-share', $pUrl . 'includes/js/mp-social-share' . $suffix . '.js' , array('jquery'), $pVer, $vendorInFooter); // old front
+//    wp_register_script('mp-row-fullwidth', $pUrl . 'includes/js/mp-row-fullwidth' . $suffix . '.js', array('jquery'), $pVer); // old front
+//    wp_register_script('mp-video-background', $pUrl . 'includes/js/mp-video-background' . $suffix . '.js', array('jquery'), $pVer); // old front
+    wp_register_script('mp-youtube-api', '//www.youtube.com/player_api', array(), null, $vendorInFooter);
+    wp_register_script('stellar', $pUrl . 'vendors/stellar/jquery.stellar.min.js', array('jquery'), $pVer, $vendorInFooter);
+//    wp_register_script('mp-row-parallax', $pUrl . 'includes/js/mp-row-parallax' . $suffix . '.js', array('jquery', 'stellar'), $pVer); // old front
+    wp_register_script('mpce-magnific-popup', $pUrl . 'vendors/magnific-popup/jquery.magnific-popup.min.js', array('jquery'), $pVer, $vendorInFooter);
+//    wp_register_script('mp-lightbox', $pUrl . 'includes/js/mp-lightbox' . $suffix . '.js', array('jquery', 'mpce-magnific-popup'), $pVer); // old front
+	wp_register_script('mp-js-cookie', $pUrl . 'vendors/js-cookie/js.cookie.min.js', array(), $pVer);
+//    wp_register_script('mp-grid-gallery', $pUrl . 'includes/js/mp-grid-gallery' . $suffix . '.js', array('jquery'), $pVer); // old front
 
-    wp_register_script('mp-social-share', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-social-share' . $scriptSuffix . '.js' , array('jquery'), $motopressCESettings['plugin_version']);
-
-    wp_register_script('mp-row-fullwidth', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-row-fullwidth' . $scriptSuffix . '.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-video-background', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-video-background' . $scriptSuffix . '.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-youtube-api', '//www.youtube.com/player_api');
-    wp_register_script('stellar', $motopressCESettings['plugin_dir_url'] . 'vendors/stellar/jquery.stellar.min.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-row-parallax', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-row-parallax' . $scriptSuffix . '.js', array('jquery', 'stellar'), $motopressCESettings['plugin_version']);
-    wp_register_script('mpce-magnific-popup', $motopressCESettings['plugin_dir_url'] . 'vendors/magnific-popup/jquery.magnific-popup.min.js', array('jquery'), $motopressCESettings['plugin_version'], true);
-    wp_register_script('mp-lightbox', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-lightbox' . $scriptSuffix . '.js', array('jquery', 'mpce-magnific-popup'), $motopressCESettings['plugin_version']);
-	wp_register_script('mp-js-cookie', $motopressCESettings['plugin_dir_url'] . 'vendors/js-cookie/js.cookie.min.js', array(), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-grid-gallery', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-grid-gallery' . $scriptSuffix . '.js', array('jquery'), $motopressCESettings['plugin_version']);
-
-    wp_register_script('mpce-countdown-plugin', $motopressCESettings['plugin_dir_url'] . 'vendors/keith-wood-countdown-timer/js/jquery.plugin_countdown.min.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_script('mpce-countdown-timer', $motopressCESettings['plugin_dir_url'] . 'vendors/keith-wood-countdown-timer/js/jquery.countdown.min.js', array('jquery'), $motopressCESettings['plugin_version']);
-	//wp_register_style('mpce-countdown-timer', $motopressCESettings['plugin_dir_url'] . 'vendors/keith-wood-countdown-timer/css/countdown.min.css', null, $motopressCESettings['plugin_version']);
+    wp_register_script('mpce-countdown-plugin', $pUrl . 'vendors/keith-wood-countdown-timer/js/jquery.plugin_countdown.min.js', array('jquery'), $pVer, $vendorInFooter);
+    wp_register_script('mpce-countdown-timer', $pUrl . 'vendors/keith-wood-countdown-timer/js/jquery.countdown.min.js', array('jquery'), $pVer, $vendorInFooter);
+	// Unused
+	//wp_register_style('mpce-countdown-timer', $pUrl . 'vendors/keith-wood-countdown-timer/css/countdown.min.css', null, $pVer);
 	
 	// add language file
 	$mp_keith_wood_countdown_timer_languages = array("sq"=>"sq","ar"=>"ar","hy"=>"hy","bn-BD"=>"bn","bs-BA"=>"bs","bg-BG"=>"bg","ca"=>"ca","hr"=>"hr","cs-CZ"=>"cs","da-DK"=>"da","nl-NL"=>"nl","et"=>"et","fo"=>"fo","fi"=>"fi","gl-ES"=>"gl","de-DE"=>"de","el"=>"el","gu"=>"gu","he-IL"=>"he","hu-HU"=>"hu","is-IS"=>"is","id-ID"=>"id","ja"=>"ja","kn"=>"kn","ko-KR"=>"ko","lv"=>"lv","lt-LT"=>"lt","ms-MY"=>"ms","ms-MY"=>"ml","ml-IN"=>"ml","fa-IR"=>"fa","pl-PL"=>"pl","ro-RO"=>"ro","ru-RU"=>"ru","sr-RS"=>"sr","sr-RS"=>"sr-SR","sk-SK"=>"sk","sl-SI"=>"sl","sv-SE"=>"sv","th"=>"th","tr-TR"=>"tr","uk"=>"uk","ur"=>"ur","uz-UZ"=>"uz","vi"=>"vi","cy"=>"cy");
 	$wp_lang = get_bloginfo('language');
 	$keith_wood_timer_lang = array_key_exists( $wp_lang, $mp_keith_wood_countdown_timer_languages) ? $mp_keith_wood_countdown_timer_languages[$wp_lang] : 'en';
 	if ( $keith_wood_timer_lang != 'en' ) {
-		wp_register_script('keith-wood-countdown-language', $motopressCESettings['plugin_dir_url'] . 'vendors/keith-wood-countdown-timer/js/lang/jquery.countdown-' . $keith_wood_timer_lang . '.js',
-		array('mpce-countdown-plugin', 'mpce-countdown-timer'), $motopressCESettings['plugin_version'], true);
+		wp_register_script(
+			'keith-wood-countdown-language',
+			$pUrl . 'vendors/keith-wood-countdown-timer/js/lang/jquery.countdown-' . $keith_wood_timer_lang . '.js',
+	    	array('mpce-countdown-plugin', 'mpce-countdown-timer'),
+			$pVer,
+			$vendorInFooter
+		);
 	}
 	
-    wp_register_script('mpce-waypoints', $motopressCESettings['plugin_dir_url'] . 'vendors/imakewebthings-waypoints/jquery.waypoints.min.js', array('jquery'), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-waypoint-animations', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-waypoint-animations' . $scriptSuffix . '.js', array('jquery', 'mpce-waypoints'), $motopressCESettings['plugin_version']);
-    wp_register_script('mp-posts-grid', $motopressCESettings['plugin_dir_url'] . 'includes/js/mp-posts-grid' . $scriptSuffix . '.js', array('jquery'), $motopressCESettings['plugin_version']);
-	wp_localize_script('mp-posts-grid', 'MPCEPostsGrid', array(
+    wp_register_script('mpce-waypoints', $pUrl . 'vendors/imakewebthings-waypoints/jquery.waypoints.min.js', array('jquery'), $pVer, $vendorInFooter);
+//    wp_register_script('mp-waypoint-animations', $pUrl . 'includes/js/mp-waypoint-animations' . $suffix . '.js', array('jquery', 'mpce-waypoints'), $pVer); // old front
+//    wp_register_script('mp-posts-grid', $pUrl . 'includes/js/mp-posts-grid' . $suffix . '.js', array('jquery'), $pVer); // old front
+
+	wp_register_script('mp-frontend', $pUrl . 'includes/js/mp-frontend' . $suffix . '.js', array('jquery'), $pVer, $frontInFooter);
+
+//	wp_localize_script('mp-posts-grid', 'MPCEPostsGrid', array(
+	wp_localize_script('mp-frontend', 'MPCEPostsGrid', array(
 		'admin_ajax' => admin_url('admin-ajax.php'),
 		'nonces' => array(
 			'motopress_ce_posts_grid_filter' => wp_create_nonce('wp_ajax_motopress_ce_posts_grid_filter'),
@@ -263,14 +164,19 @@ function motopressCEWpHead() {
 			'motopress_ce_posts_grid_load_more' => wp_create_nonce('wp_ajax_motopress_ce_posts_grid_load_more')
 		)
 	));
-	
-    $mpGoogleChartsSwitch = array('motopressCE' => '0');	
-    wp_enqueue_style('mpce-theme');	
+
+	wp_localize_script('mp-frontend', 'MPCEVars', array(
+		'fixed_row_width' => get_option('motopress-ce-fixed-row-width', $motopressCESettings['default_fixed_row_width']),
+	));
+
+    $mpGoogleChartsSwitch = array('motopressCE' => '0');
+    wp_enqueue_style('mpce-theme');
 	motopressCEAddFixedRowWidthStyle('mpce-theme');
     wp_enqueue_style('mpce-bootstrap-grid');
     wp_enqueue_style('mpce-font-awesome');
 
-    if (isset($_GET['motopress-ce']) && $_GET['motopress-ce'] == 1) {
+    if (MPCEContentManager::isBuilderRunning()) {
+	    // Unused
 //        wp_deregister_style('mpce-bootstrap-responsive-utility');
 
         global $wp_scripts;
@@ -278,7 +184,7 @@ function motopressCEWpHead() {
         if (version_compare($wp_scripts->registered['jquery']->ver, MPCERequirements::MIN_JQUERY_VER, '<')) {
             $wpjQueryVer = motopressCEGetWPScriptVer('jQuery');
             wp_deregister_script('jquery');
-            wp_register_script('jquery', includes_url() . 'js/jquery/jquery.js', array(), $wpjQueryVer);
+            wp_register_script('jquery', includes_url('js/jquery/jquery.js'), array(), $wpjQueryVer);
             wp_enqueue_script('jquery');
 
             if (version_compare($wpjQueryVer, '1.9.0', '>')) {
@@ -289,15 +195,44 @@ function motopressCEWpHead() {
             }
         }
 
+	    // Load IFrame styles
+	    wp_enqueue_style('mpce-bootstrap-datetimepicker', $pUrl . 'bootstrap/datetimepicker/bootstrap-datetimepicker.min.css', array(), $pVer);
+	    wp_enqueue_style('mpce-select2', $pUrl . 'vendors/select2/select2.min.css', array(), $pVer);
+	    wp_enqueue_style('mpce-bootstrap-select', $pUrl . 'bootstrap/select/bootstrap-select.min.css', array(), $pVer);
+	    wp_enqueue_style('mpce-iframe', $pUrl . 'mp/ce/css/ceIframe.css', array(), $pVer);
+	    wp_enqueue_style('mpce-jquery-ui-dialog', includes_url('css/jquery-ui-dialog.css') , array(), $pVer);
+	    wp_enqueue_style('mpce-bootstrap-icon', $pUrl . 'bootstrap/bootstrap-icon.min.css', array(), $pVer);
+	    wp_enqueue_style('mpce-spectrum-theme', $pUrl . 'vendors/bgrins-spectrum/build/spectrum_theme.css', array(), $pVer);
 
-	    // TODO: Use this instead of appending scripts on the fly. Fix controllers running order (setup, init, ...)
-        /*wp_register_script('mpce-iframe-prod', $motopressCESettings['plugin_dir_url'] . 'steal/steal.production.js?mp/ce/iframeProd', array('jquery'));
-        wp_enqueue_script('mpce-iframe-prod');
-	    wp_localize_script('mpce-iframe-prod', 'steal', array(
-	        'production' => 'mp/ce/iframeProd/production' . $scriptSuffix . '.js?ver=' . $motopressCESettings['plugin_version']
-        ));*/
+	    // --- Load IFrame scripts ---
 
-        wp_register_script('mpce-no-conflict', $motopressCESettings['plugin_dir_url'] . 'mp/core/noConflict/noConflict' . $scriptSuffix . '.js', array('jquery'), $motopressCESettings['plugin_version']);
+	    // Fix jQueryUI (must be enqueued before jQueryUI)
+        wp_enqueue_script('mpce-pre-bootstrap', $pUrl . 'mp/ce/iframeProd/pre-bootstrap' . $suffix . '.js', array('jquery'), $pVer, $editorInFooter);
+
+	    // jQueryUI components
+	    wp_enqueue_script('mpce-jquery-ui', $motopressCESettings['load_scripts_url'], array('jquery'), $pVer, true);
+
+	    // Load CanJS
+	    wp_register_script('mpce-canjs', $pUrl . 'vendors/canjs/can.custom.min.js', array('jquery'), $motopressCESettings['canjs_version'], $vendorInFooter);
+        wp_enqueue_script('mpce-canjs');
+
+	    if ($motopressCESettings['lang']['select2'] !== 'en') {
+		    wp_enqueue_script('mpce-select2-locale', $pUrl . 'vendors/select2/select2_locale_' . $motopressCESettings['lang']['select2'] . '.js', array('jquery'), $pVer, $vendorInFooter);
+	    }
+        wp_enqueue_script('mpce-bootstrap2-custom', $pUrl . 'bootstrap/bootstrap2-custom.min.js', array('jquery'), $pVer, $vendorInFooter);
+        wp_enqueue_script('mpce-bootstrap-select', $pUrl . 'bootstrap/select/bootstrap-select.min.js', array('jquery'), $pVer, $vendorInFooter);
+        wp_enqueue_script('mpce-jquery-fonticonpicker', $pUrl . 'vendors/fontIconPicker/jquery.fonticonpicker.min.js', array('jquery'), $pVer, $vendorInFooter);
+        wp_enqueue_script('mpce-spectrum', $pUrl . 'vendors/bgrins-spectrum/build/spectrum-min.js', array('jquery'), $pVer, $vendorInFooter);
+        wp_enqueue_script('mpce-select2', $pUrl . 'vendors/select2/select2.min.js', array('jquery'), $pVer, $vendorInFooter);
+	    wp_enqueue_script('mpce-bootstrapx-clickover', $pUrl . 'bootstrap/clickover/bootstrapx-clickover.min.js', array('jquery'), $pVer, $vendorInFooter);
+	    wp_enqueue_script('mpce-moment', $pUrl . 'vendors/moment.js/moment.min.js', array('jquery'), $pVer, $vendorInFooter);
+	    wp_enqueue_script('mpce-bootstrap-datetimepicker', $pUrl . 'bootstrap/datetimepicker/bootstrap-datetimepicker.min.js', array('jquery'), $pVer, $vendorInFooter);
+
+	    wp_enqueue_script('mpce-editor', $pUrl . 'mp/ce/iframeProd/editor' . $suffix . '.js', array('jquery'), $pVer, $editorInFooter);
+	    wp_localize_script('mpce-editor', 'MP', array());
+	    wp_localize_script('mpce-editor', 'CE', array());
+
+        wp_register_script('mpce-no-conflict', $pUrl . 'mp/core/noConflict/noConflict' . $suffix . '.js', array('jquery'), $pVer, $noConflictInFooter);
         wp_enqueue_script('mpce-no-conflict');
         $jQueryOffset = array_search('jquery', $wp_scripts->queue) + 1;
         $index = ($migrate) ? array_search('jquery-migrate', $wp_scripts->queue) : array_search('mpce-no-conflict', $wp_scripts->queue);
@@ -320,7 +255,7 @@ function motopressCEWpHead() {
 
         if (wp_script_is('jquery-ui.min')) wp_dequeue_script('jquery-ui.min'); //fix for theme1530
 
-        wp_register_script('mpce-tinymce', $motopressCESettings['plugin_dir_url'] . 'vendors/tinymce/tinymce.min.js', array(), $motopressCESettings['plugin_version']);
+        wp_register_script('mpce-tinymce', $pUrl . 'vendors/tinymce/tinymce.min.js', array(), $pVer, $vendorInFooter);
         wp_enqueue_script('mpce-tinymce');
 
         wp_enqueue_style('mpce-flexslider');
@@ -329,30 +264,36 @@ function motopressCEWpHead() {
 		wp_enqueue_script('mpce-magnific-popup');
 
         wp_enqueue_script('google-charts-api');
-        wp_enqueue_script('mp-google-charts');
+//        wp_enqueue_script('mp-google-charts'); // old front
 
-        wp_enqueue_style( 'wp-mediaelement' );
-        wp_enqueue_script( 'wp-mediaelement' );
+        wp_enqueue_style('wp-mediaelement');
+        wp_enqueue_script('wp-mediaelement');
 
         wp_enqueue_script('stellar');
-        wp_enqueue_script('mp-row-parallax');
+//        wp_enqueue_script('mp-row-parallax'); // old front
         wp_enqueue_script('mp-youtube-api');
-	    wp_enqueue_script('mp-row-fullwidth');
-        wp_enqueue_script('mp-video-background');
-        wp_enqueue_script('mp-grid-gallery');
+//	    wp_enqueue_script('mp-row-fullwidth'); // old front
+//        wp_enqueue_script('mp-video-background'); // old front
+//        wp_enqueue_script('mp-grid-gallery'); // old front
 
         wp_enqueue_script('mpce-countdown-plugin');
         wp_enqueue_script('mpce-countdown-timer');
 	    if (wp_script_is('keith-wood-countdown-language', 'registered')) {
 		    wp_enqueue_script('keith-wood-countdown-language');
 	    }
+
+	    // TODO: Is it needed in editor ?
 	    wp_enqueue_script('mpce-waypoints');
 
+	    // Moved out from condition
 //        wp_enqueue_style('mpce-font-awesome');
+
+	    wp_enqueue_script('mp-frontend');
 
         if (is_plugin_active('motopress-slider/motopress-slider.php') || is_plugin_active('motopress-slider-lite/motopress-slider.php')) {
             global $mpsl_settings;
             if (version_compare($mpsl_settings['plugin_version'], '1.1.2', '>=')) {
+	            /** @var MPSlider $mpSlider */
                 global $mpSlider;
                 $mpSlider->enqueueScriptsStyles();
             }
@@ -364,7 +305,8 @@ function motopressCEWpHead() {
         do_action('mpce_add_custom_styles');
     }
 
-    wp_localize_script( 'mp-google-charts', 'motopressGoogleChartsPHPData', $mpGoogleChartsSwitch );
+//    wp_localize_script('mp-google-charts', 'motopressGoogleChartsPHPData', $mpGoogleChartsSwitch);
+	wp_localize_script('mp-frontend', 'motopressGoogleChartsPHPData', $mpGoogleChartsSwitch);
 }
 
 /**
@@ -373,17 +315,16 @@ function motopressCEWpHead() {
  * @param string $handle Name of the stylesheet to add the extra styles to. Must be lowercase.
  */
 function motopressCEAddFixedRowWidthStyle($handle){
-	$fixedRowWidth = get_option('motopress-ce-fixed-row-width', 1170);	
-	$style = '.mp-row-fixed-width{'
+	global $motopressCESettings;
+	$fixedRowWidth = get_option('motopress-ce-fixed-row-width', $motopressCESettings['default_fixed_row_width']);
+
+	$style = '.mp-row-fixed-width {'
 			. 'max-width:' . $fixedRowWidth . 'px;'
 			. '}';
 	wp_add_inline_style($handle, $style);
 }
 
-require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/MPCECustomStyleManager.php';
 $mpceCustomStyleManager = MPCECustomStyleManager::getInstance();
-require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/shortcodes/post_grid/MPCEShortcodePostsGrid.php';
-require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/Shortcode.php';
 $shortcode = new MPCEShortcode();
 $shortcode->register();
 
@@ -414,8 +355,7 @@ function motopressCEAdminBarMenu($wp_admin_bar) {
                         'id' => 'motopress-edit',
                         'title' => strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name'])),
                         'meta' => array(
-                            'title' => strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name'])),
-                            'onclick' => 'sessionStorage.setItem("motopressPluginAutoOpen", true);'
+                            'title' => strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name']))
                         )
                     ));
                 }
@@ -425,16 +365,6 @@ function motopressCEAdminBarMenu($wp_admin_bar) {
 }
 add_action('admin_bar_menu', 'motopressCEAdminBarMenu', 81);
 
-function motopressCEExcerptShortcode() {
-    $excerptShortcode = get_option('motopress-ce-excerpt-shortcode', '1');
-    if ($excerptShortcode) {
-        remove_filter('the_excerpt', 'wpautop');
-        add_filter('the_excerpt', 'do_shortcode');
-        add_filter('get_the_excerpt', 'do_shortcode');
-    }
-}
-
-motopressCEExcerptShortcode();
 require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/Library.php';
 require_once $motopressCESettings['plugin_dir_path'] . 'includes/getLanguageDict.php';
 
@@ -472,23 +402,24 @@ require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/Tutorials.ph
 
 add_action('admin_init', 'motopressCEInit');
 add_action('admin_menu', 'motopressCEMenu', 11);
-add_action('save_post', 'motopressCESave', 10, 2);
-add_action('edit_form_after_title', 'motopressCEAddFieldsToPostForm');
+
 
 function motopressCEInit() {
 	global $motopressCESettings;
-	$scriptSuffix = $motopressCESettings['script_suffix'];
 
-    wp_register_style('mpce-style', $motopressCESettings['plugin_dir_url'] . 'includes/css/style' . $scriptSuffix . '.css', array(), $motopressCESettings['plugin_version']);
-    wp_register_script('mpce-detect-browser', $motopressCESettings['plugin_dir_url'].'mp/core/detectBrowser/detectBrowser' . $scriptSuffix . '.js', array(), $motopressCESettings['plugin_version']);
+	$suffix = $motopressCESettings['script_suffix'];
+	$pUrl = $motopressCESettings['plugin_dir_url'];
+	$pVer = $motopressCESettings['plugin_version'];
+	$brwsrDetectInFooter = false;
+
+    wp_register_style('mpce-style', $pUrl . 'includes/css/style' . $suffix . '.css', array(), $pVer);
+    wp_register_script('mpce-detect-browser', $pUrl.'mp/core/detectBrowser/detectBrowser' . $suffix . '.js', array(), $pVer, $brwsrDetectInFooter);
 
     wp_enqueue_script('mpce-detect-browser');
 
-	//new MPCEAutoUpdate($motopressCESettings['plugin_version'], $motopressCESettings['update_url'], $motopressCESettings['plugin_name'].'/'.$motopressCESettings['plugin_name'].'.php');
+	//new MPCEAutoUpdate($pVer, $motopressCESettings['update_url'], $motopressCESettings['plugin_name'].'/'.$motopressCESettings['plugin_name'].'.php');
 
     //add_action('in_plugin_update_message-'.$motopressCESettings['plugin_name'].'/'.$motopressCESettings['plugin_name'].'.php', 'motopressCEAddUpgradeMessageLink', 20, 2);
-	
-    motopressCERegisterHtmlAttributes();
 
     if (!is_array(get_option('motopress_google_font_classes'))){
         add_action('admin_notices', 'motopress_google_font_not_writable_notice');
@@ -551,40 +482,6 @@ function motopressCEAddUpgradeMessageLink($plugin_data, $r) {
     echo ' ' . strtr($motopressCELang->CEDownloadMessage, array('%link%' => $r->url));
 }
 */
-
-function motopressCERegisterHtmlAttributes() {
-    global $allowedposttags;
-
-    if (isset($allowedposttags['div']) && is_array($allowedposttags['div'])) {
-        $attributes = array_fill_keys(array_values(MPCEShortcode::$attributes), true);
-        $allowedposttags['div'] = array_merge($allowedposttags['div'], $attributes);
-    }
-}
-
-//add_filter('tiny_mce_before_init', 'motopressCERegisterTinyMCEHtmlAttributes', 10, 1);
-// this func override valid_elements of tinyMCE.
-// If you need to use this function you will set all html5 attrs in addition to motopress-attributes
-//function motopressCERegisterTinyMCEHtmlAttributes($options) {
-//    global $motopressCESettings;
-//
-//    if (!isset($options['extended_valid_elements'])) {
-//        $options['extended_valid_elements'] = '';
-//    }
-//
-//    $attributes = array_values(MPCEShortcode::$attributes);
-//    //html5attrs must contain all valid html5 attributes
-//    $html5attrs = array('class', 'id', 'align', 'style');
-//    if (strpos($options['extended_valid_elements'], 'div[')) {
-//        $attributesStr = implode('|', $attributes);
-//        $options['extended_valid_elements'] .= preg_replace('/div\[([^\]]*)\]/', 'div[$1|' . $attributesStr . ']', $options['extended_valid_elements']);
-//    } else {
-//        array_push($attributes, $html5attrs);
-//        $attributesStr = implode('|', $attributes);
-//        $options['extended_valid_elements'] .= ',div[' . $attributesStr . ']';
-//    }
-//
-//    return $options;
-//}
 
 function motopressCEMenu() {
 	global $motopressCESettings;
@@ -655,33 +552,6 @@ function motopressCESortTabs($a, $b) {
     return $a['priority'] - $b['priority'];
 }
 
-function motopressCESave($postId, $post) {
-    global $motopressCESettings;
-
-    if (
-        isset($_POST['motopress-ce-edited-post']) &&
-        !empty($_POST['motopress-ce-edited-post']) &&
-        $postId === (int) $_POST['motopress-ce-edited-post'] &&
-        !wp_is_post_revision($postId)
-    ) {
-        update_post_meta($postId, 'motopress-ce-save-in-version', $motopressCESettings['plugin_version']);
-    }
-}
-
-/** @todo: Move editor button here */
-function motopressCEAddFieldsToPostForm($post) {
-	global $motopressCESettings;
-    require_once $motopressCESettings['plugin_dir_path'] . 'includes/ce/Access.php';
-
-	$ceAccess = new MPCEAccess();
-    $postTypes = get_option('motopress-ce-options', array('post', 'page'));
-	$postType = get_post_type($post);
-
-	if (in_array($postType, $postTypes) && post_type_supports($postType, 'editor') && $ceAccess->hasAccess()) {
-		echo '<div class="mpce-form-fields"></div>';
-	}
-}
-
 function motopressCEAdminStylesAndScripts() {
 	global $motopressCESettings;
 	$pluginId = isset($_GET['plugin']) ? $_GET['plugin'] : $motopressCESettings['plugin_short_name'];
@@ -735,8 +605,14 @@ function motopressCEInstall($network_wide) {
     global $wpdb;
     if ( is_multisite() && $network_wide ) {
 		global $wp_version;
-		if (version_compare('3.7', $wp_version, '<=')) {
-			$sites = wp_get_sites();
+		if (version_compare($wp_version, '3.7', '>=')) {
+			if (version_compare($wp_version, '4.6', '<')) {
+				$sites = wp_get_sites();
+			} else {
+				$sites = get_sites();
+				$sites = array_map('get_object_vars', $sites);
+			}
+
 			if (function_exists('array_column')) {
 				$blogids = array_column($sites, 'blog_id');
 			} else {
@@ -795,16 +671,15 @@ function motopress_edit_link($actions, $post){
     $isHideLinkEditWith = apply_filters('mpce_hide_link_edit_with', false);
 
     if (!$isHideLinkEditWith && $ceAccess->hasAccess($post->ID) && in_array( $post->post_type, $ceEnabledPostTypes ) ){
-
         $newActions = array();
-
         foreach ($actions as $action => $value) {
             $newActions[$action] = $value;
             if ($action === 'inline hide-if-no-js') {
-                $newActions['motopress_edit_link'] = '<a href="' . get_edit_post_link( $post->ID, true ) . '" title="' . esc_attr(strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name']))) . '" onclick="sessionStorage.setItem(&quot;motopressPluginAutoOpen&quot;, true);">' . strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name'])) . '</a>';
+	            $linkTitle = strtr($motopressCELang->CEAdminBarMenu, array('%BrandName%' => $motopressCESettings['brand_name']));
+	            $linkUri = add_query_arg('motopress-ce-auto-open', 'true', get_edit_post_link($post->ID, true));
+                $newActions['motopress_edit_link'] = '<a href="' . $linkUri . '" title="' . esc_attr($linkTitle) . '">' . $linkTitle . '</a>';
             }
         }
-
         return $newActions;
     } else {
         return $actions;

@@ -77,7 +77,11 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
            							</div>
            							<div class="col-md-12 titleblog">
                                         <div class="col-md-12 imagetublog">
-                                            <?php echo get_the_post_thumbnail( $_post->ID, 'thumbnail' ); ?>
+                                            <?php //echo get_the_post_thumbnail( $_post->ID, 'thumbnail' ); 
+                                                $url = wp_get_attachment_url( get_post_thumbnail_id($_post->ID), 'thumbnail' ); 
+                                            ?>
+                                            <img src="<?php echo $url; ?>">
+
                                         </div>                                        
 										<?php echo the_content(); ?>
            							</div>
@@ -159,7 +163,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 </div>
 
 	<div id="primary" class="content-area">
-		<div id="content" class="site-content container" role="main">
+		<div id="content" class="site-content container contenidoblogs" role="main">
 
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
