@@ -13,13 +13,16 @@ session_start();
 $src= get_template_directory_uri();
 
 ?>
+<?php wp_head();?>
 <html>
 	<head>
 		<title>Intranet</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/css/main.css">		
+		<link rel="stylesheet" type="text/css" href="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/css/main.css">
+		<!-- <link rel="stylesheet" href="http://159.203.108.98/asic/wp-content/plugins/motopress-content-editor-lite/bootstrap/bootstrap-grid.min.css">	 -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">	
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/jquery.min.js"></script>
 		<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/intranet/js/bootstrap.min.js"></script>		
 		<style type="text/css">
@@ -37,8 +40,8 @@ $src= get_template_directory_uri();
 					$('#menu-item-448').click(function(event){
   					   event.preventDefault();  					   
   					   var id = $(this).prop('id')
-  					   //var href = $("#"+id + " a ").attr('href');
-  					   var href= "https://app.asicamericas.com:9000/ux/myitapp/";  					   
+  					   var href = $("#"+id + " a ").attr('href');
+  					   //var href= "http://smart.asicamericas.com:9000/ux/myitapp/#/updates";  					   
   					   $('<a class="logocsc" style="position: absolute;left: 127px;" target="_blank" href="'+href+'"><img src="<?php echo $src; ?>/images/logocsc.png" style="width:120px"/></a>').insertAfter("#"+id);
   					  
 				});

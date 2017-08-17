@@ -12,13 +12,14 @@
  */
 
 get_header(); ?>
-<?php
+
+
+<?php echo do_shortcode("[metaslider id=176]"); ?>
+<!-- <?php
 if ( function_exists('yoast_breadcrumb') ) {
 yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 }
-?>
-
-<?php echo do_shortcode("[metaslider id=176]"); ?>
+?> -->
 	<div  class="container">
 
         <div id="chatmobile" class="col-xs-12">
@@ -59,7 +60,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
              </div>-->
         </div>
         
-            <div class="row cuadro12 pr">
+            <!-- <div class="row cuadro12 pr">
                 <div class="container">
                     <div class="col-md-12">
                          <p id="text42"><?php echo $tit2; ?></p>            
@@ -95,7 +96,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
                         
                 </section>
             </div>
-		</div> 
+		</div>  -->
             <div  class="container">
                 
                     <div class="col-md-12 blogs">
@@ -121,7 +122,9 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
                                     </div>
                                     <div class="col-md-9 col-sm-9 titleblog">
                                         <a href="<?php echo get_permalink(); ?>"><h3 class="titbloghome"><?php echo the_title(); ?></h3></a>
-                                         <?php echo print_excerpt(500);?>
+                                        <div class="extracto">
+                                         <p><?php echo print_excerpt(500);?></p>
+                                         </div>
 
                                          <a  class="verblogs" href="<?php echo get_permalink();?>">Ver más</a>
                                     </div>                                  
@@ -136,7 +139,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
     </div>
 
 <!-- Version móvil -->
-<div id="mobilehome">
+<!-- <div id="mobilehome">
     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 
                  <div class="servicios">
@@ -272,8 +275,8 @@ if ( $the_query->have_posts() ) {
                
 
  </div>
- </div>
-</div>
+ </div> -->
+<!-- </div> -->
  <!--End movil -->
 <?php //get_sidebar(); ?>
 <?php get_footer(); ?>

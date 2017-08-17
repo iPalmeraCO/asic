@@ -33,7 +33,12 @@ text-decoration: none;
     <div class="container">
       <div class="row ">
         <div class="col-md-5 col-sm-4 textofooter col-xs-12">       
-          <?php dynamic_sidebar( 'sidebar-5' );  ?>  
+          <?php dynamic_sidebar( 'sidebar-5' );  ?>
+          <div class="row">
+            <div class="col-md-12">
+                <a class="politcss" href="https://www.asicamericas.com/wp-content/uploads/2017/05/Politica-tratamiento-de-datos.pdf" target="_Blank" style="text-align: right;">Política de Manejo de Datos</a>
+            </div>
+        </div>   
         </div>
         <div class="col-md-1 col-sm-2 col-xs-12 chicafooter">
           <?php dynamic_sidebar( 'sidebar-6' );  ?>  
@@ -42,11 +47,7 @@ text-decoration: none;
         </div>
         <div class="col-md-4  col-sm-6 col-xs-10 redesociales">   
         <?php dynamic_sidebar( 'sidebar-7' );  ?>
-<div class="row">
-        	<div class="col-md-12">
-        		<a class="politcss" href="/wp-content/uploads/2017/05/Politica-tratamiento-de-datos.pdf" target="_Blanck">Política de Manejo de Datos</a>
-        	</div>
-        </div>                           
+                          
         </div>
         <div class="col-xs-1">
         </div>

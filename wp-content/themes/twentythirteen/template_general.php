@@ -52,7 +52,7 @@ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
 	</div><!-- #primary -->
 
 
- <div class="cuadro15">
+<!--  <div class="cuadro15">
  	<div class="row">
 <?php 
 $key="imagenfooter"; 
@@ -68,7 +68,7 @@ echo get_post_meta($post->ID, $key, true);
 ?>
 	</div>
 	</div>
- </div>
+ </div> -->
 
 
 
